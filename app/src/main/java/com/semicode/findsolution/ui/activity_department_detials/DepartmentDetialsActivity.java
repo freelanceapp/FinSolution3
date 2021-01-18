@@ -1,12 +1,9 @@
-package com.semicode.findsolution.ui.activity_products_sell;
+package com.semicode.findsolution.ui.activity_department_detials;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +26,7 @@ import com.semicode.findsolution.models.UserModel;
 import com.semicode.findsolution.mvp.activity_products_sell_mvp.ActivityDepartmentDetialsPresenter;
 import com.semicode.findsolution.mvp.activity_products_sell_mvp.DepartmentDetialsActivityView;
 import com.semicode.findsolution.preferences.Preferences;
+import com.semicode.findsolution.ui.activity_edit_profile.AdvisorDetialsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,5 +156,8 @@ public class DepartmentDetialsActivity extends AppCompatActivity implements Depa
     }
 
     public void showdprofile(SingleUserModel singleUserModel) {
+        Intent intent=new Intent(this, AdvisorDetialsActivity.class);
+        intent.putExtra("data",singleUserModel);
+        startActivity(intent);
     }
 }

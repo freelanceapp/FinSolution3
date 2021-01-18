@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -12,6 +13,7 @@ import com.semicode.findsolution.R;
 import com.semicode.findsolution.databinding.CatogryRowBinding;
 import com.semicode.findsolution.models.SingleCategoryModel;
 import com.semicode.findsolution.ui.activity_home.HomeActivity;
+import com.semicode.findsolution.ui.activity_home.fragments.Fragment_Home;
 
 import java.util.List;
 
@@ -23,14 +25,16 @@ public class Category_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private Context context;
     private LayoutInflater inflater;
     private String lang;
+    private Fragment fragment;
     private HomeActivity homeactivity;
-    public Category_Adapter(List<SingleCategoryModel> singleCategoryModelList, Context context) {
+
+    public Category_Adapter(List<SingleCategoryModel> singleCategoryModelList, Context context, Fragment fragment) {
         this.singleCategoryModelList = singleCategoryModelList;
         this.context = context;
         inflater = LayoutInflater.from(context);
         Paper.init(context);
         lang = Paper.book().read("lang", java.util.Locale.getDefault().getLanguage());
-        homeactivity=(HomeActivity) context;
+        this.fragment = fragment;
     }
 
     @androidx.annotation.NonNull
@@ -51,11 +55,14 @@ public class Category_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         eventHolder.binding.setCategorymodel(singleCategoryModelList.get(position));
 
         eventHolder.itemView.setOnClickListener(new android.view.View.OnClickListener() {
-    @Override
-    public void onClick(android.view.View v) {
-        homeactivity.showdata(singleCategoryModelList.get(eventHolder.getLayoutPosition()));
-    }
-});
+            @Override
+            public void onClick(android.view.View v) {
+                if (fragment instanceof Fragment_Home) {
+                    Fragment_Home fragment_home = (Fragment_Home) fragment;
+                    fragment_home.showdata(singleCategoryModelList.get(eventHolder.getLayoutPosition()));
+                }
+            }
+        });
 /*
 if(i==position){
     if(i!=0) {

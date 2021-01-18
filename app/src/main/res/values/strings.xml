@@ -26,5 +26,11 @@
     <string name="department">Department</string>
     <string name="something">Check internet connection</string>
     <string name="no_data_show">No Data Show</string>
+    <string name="personal_info">Personal Info</string>
+    <string name="work">Work :</string>
+    <string name="additional_detials">Additional Detials :</string>
+    <string name="location">Location</string>
+    <string name="open">open</string>
+    <string name="close">Close</string>
 
 </resources>

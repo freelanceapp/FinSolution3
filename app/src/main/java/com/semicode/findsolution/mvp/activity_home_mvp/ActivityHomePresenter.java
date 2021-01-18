@@ -3,6 +3,8 @@ package com.semicode.findsolution.mvp.activity_home_mvp;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.fragment.app.FragmentManager;
+
 import com.semicode.findsolution.R;
 import com.semicode.findsolution.models.AllCatogryModel;
 import com.semicode.findsolution.models.Slider_Model;
@@ -10,6 +12,7 @@ import com.semicode.findsolution.models.UserModel;
 import com.semicode.findsolution.preferences.Preferences;
 import com.semicode.findsolution.remote.Api;
 import com.semicode.findsolution.tags.Tags;
+import com.semicode.findsolution.ui.activity_home.fragments.Fragment_Home;
 
 import java.io.IOException;
 
@@ -19,14 +22,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActivityHomePresenter {
+    private final FragmentManager fragmentManager;
     private UserModel userModel;
     private Preferences preferences;
     private HomeActivityView view;
     private Context context;
+    private Fragment_Home fragment_home;
 
-    public ActivityHomePresenter(HomeActivityView view, Context context) {
+    public ActivityHomePresenter(HomeActivityView view, Context context, FragmentManager fragmentManager) {
         this.view = view;
         this.context = context;
+        this.fragmentManager=fragmentManager;
+        displayFragmentHome();
     }
 
     public void backPress() {
@@ -35,87 +42,33 @@ public class ActivityHomePresenter {
 
 
     }
+    private void displayFragmentHome(){
+        if (fragment_home==null){
+            fragment_home = Fragment_Home.newInstance();
+        }
 
+//        if (fragment_appointment!=null&&fragment_appointment.isAdded()){
+//            fragmentManager.beginTransaction().hide(fragment_appointment).commit();
+//        }
+//
+//        if (fragment_medicine!=null&&fragment_medicine.isAdded()){
+//            fragmentManager.beginTransaction().hide(fragment_medicine).commit();
+//        }
+//
+//
+//        if (fragment_more!=null&&fragment_more.isAdded()){
+//            fragmentManager.beginTransaction().hide(fragment_more).commit();
+//        }
 
-
-    public void getSlider() {
-        view.onProgressSliderShow();
-
-        Api.getService(Tags.base_url).get_slider().enqueue(new Callback<Slider_Model>() {
-            @Override
-            public void onResponse(Call<Slider_Model> call, Response<Slider_Model> response) {
-                view.onProgressSliderHide();
-
-                if (response.isSuccessful()) {
-                    if (response.body() != null && response.body().getData() != null) {
-                        view.onSliderSuccess(response.body().getData());
-
-                    }
-
-                } else {
-                    try {
-                        view.onFailed(context.getString(R.string.failed));
-                        Log.e("Error_code", response.code() + "_" + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Slider_Model> call, Throwable t) {
-                try {
-                    view.onProgressSliderHide();
-
-                    Log.e("Error", t.getMessage());
-
-                } catch (Exception e) {
-
-                }
-
-            }
-        });
-
+        if (fragment_home.isAdded()){
+            fragmentManager.beginTransaction().show(fragment_home).commit();
+        }else {
+            fragmentManager.beginTransaction().add(R.id.fragment_container_view_tag,fragment_home,"fragment_home").commit();
+        }
     }
-    public void getcategories()
-    {
-        // Log.e("tjtjtj",userModel.getIs_confirmed());
-        view.onProgressShow();
-
-        Api.getService(Tags.base_url)
-                .getcategories()
-                .enqueue(new Callback<AllCatogryModel>() {
-                    @Override
-                    public void onResponse(Call<AllCatogryModel> call, Response<AllCatogryModel> response) {
-                        view.onProgressHide();
-                        if (response.isSuccessful() && response.body() != null) {
-                            view.onSuccess(response.body());
-                        } else {
-                            view.onProgressHide();
-                            view.onFailed(context.getString(R.string.something));
-                            try {
-                                Log.e("error_codess",response.code()+ response.errorBody().string());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
 
 
-                    }
 
-                    @Override
-                    public void onFailure(Call<AllCatogryModel> call, Throwable t) {
-                        try {
-                            view.onProgressHide();
-                            view.onFailed(context.getString(R.string.something));
-                            Log.e("Error", t.getMessage());
-                        } catch (Exception e) {
-
-                        }
-                    }
-                });
-    }
 
 
 }

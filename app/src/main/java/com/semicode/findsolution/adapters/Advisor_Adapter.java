@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.semicode.findsolution.R;
 import com.semicode.findsolution.databinding.AdvisorRowBinding;
-import com.semicode.findsolution.databinding.SubCategoryRowBinding;
 import com.semicode.findsolution.models.SingleUserModel;
-import com.semicode.findsolution.ui.activity_products_sell.DepartmentDetialsActivity;
+import com.semicode.findsolution.ui.activity_department_detials.DepartmentDetialsActivity;
 
 import java.util.List;
 

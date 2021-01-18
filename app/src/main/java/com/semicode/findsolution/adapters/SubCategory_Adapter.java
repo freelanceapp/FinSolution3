@@ -2,7 +2,6 @@
 package com.semicode.findsolution.adapters;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.semicode.findsolution.R;
 import com.semicode.findsolution.databinding.SubCategoryRowBinding;
 import com.semicode.findsolution.models.SingleSubCategoryModel;
-import com.semicode.findsolution.ui.activity_products_sell.DepartmentDetialsActivity;
+import com.semicode.findsolution.ui.activity_department_detials.DepartmentDetialsActivity;
 
 import java.util.List;
 

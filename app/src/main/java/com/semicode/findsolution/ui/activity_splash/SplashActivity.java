@@ -53,7 +53,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
             getWindow().setExitTransition(transition);
 
         }
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_splash);
         initView();
     }
 
@@ -97,14 +97,14 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
 //
 //    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
-            String lang = data.getStringExtra("lang");
-            //refreshActivity(lang);
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+//            String lang = data.getStringExtra("lang");
+//            //refreshActivity(lang);
+//        }
+//    }
 
 
 }
