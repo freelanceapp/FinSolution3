@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Find Solution</string>
+
+    <string name="field_req">Field required</string>
+    <string name="login">Log In</string>
+    <string name="code">Code</string>
+    <string name="user_phone">Phone number</string>
+    <string name="resend">Resend in</string>
+    <string name="resend2">Resend</string>
+    <string name="inv_code">Invalid Code</string>
+    <string name="failed">Failed</string>
+    <string name="wait">Wait</string>
+    <string name="verfication_code">Verfication Code</string>
+    <string name="please_enter_verfication_code">Please Enter Verfication Code</string>
+    <string name="confirm">Confirm</string>
+    <string name="skip">Skip</string>
+    <string name="name">Name</string>
+    <string name="start">Start</string>
+    <string name="user_found">Phone Found</string>
+    <string name="server_error">Server Error</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallary</string>
+    <string name="cancel">Cancel</string>
+    <string name="perm_image_denied">Permission image denied</string>
+    <string name="no_department_tos_show">No Department Tos Show</string>
+    <string name="department">الاقسام</string>
+    <string name="something">Check internet connection</string>
+    <string name="no_data_show">No Data Show</string>
+
+</resources>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "701926378752",
+    "firebase_url": "https://findsoulation-4f1ef-default-rtdb.firebaseio.com",
+    "project_id": "findsoulation-4f1ef",
+    "storage_bucket": "findsoulation-4f1ef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701926378752:android:26e7786e5464d8a09337e5",
+        "android_client_info": {
+          "package_name": "com.semicode.findsolution"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701926378752-qjmvb1fspr9ui48akkgpo2rd89c4t88b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgpNg0LZVFZ2bKN3yFuwJGgFvYeFov1qM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701926378752-qjmvb1fspr9ui48akkgpo2rd89c4t88b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

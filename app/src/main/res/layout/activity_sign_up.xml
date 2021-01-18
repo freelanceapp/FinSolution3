@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+                <variable
+                    name="model"
+                    type="com.semicode.findsolution.models.SignUpModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.activity_login.LoginActivity">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="250dp"
+            android:layout_height="90dp"
+            android:src="@drawable/logo"
+            android:transitionName="logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".05"
+
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardlogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@+id/imagbottom"
+            app:layout_constraintTop_toBottomOf="@+id/logo">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:id="@+id/flSelectImage"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:src="@color/white"
+                        app:civ_circle_background_color="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+
+                        android:longClickable="false"
+                        android:src="@drawable/user"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="start|bottom"
+                        android:background="@drawable/circle_bg"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_edit"
+                        app:tint="@color/white" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/llLogin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/flSelectImage"
+                    app:layout_constraintVertical_bias=".15">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+
+                        >
+
+                        <EditText
+                            android:id="@+id/edtname"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:singleLine="true"
+                            android:background="@drawable/edt_shape"
+                            android:layout_marginTop="8dp"
+                            android:textColorHint="@color/gray4"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+android:text="@={model.name}"
+                            error="@{model.error_name}"
+                            />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:paddingStart="8dp"
+                            android:paddingLeft="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingRight="8dp"
+
+                            android:text="@string/name"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textSize="17sp"
+                            app:layout_constraintBottom_toTopOf="@+id/edtname"
+                            app:layout_constraintStart_toStartOf="@+id/edtname"
+                            app:layout_constraintTop_toTopOf="@+id/edtname"
+
+                            />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <Button
+                        android:id="@+id/btnLogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_change_lang"
+                        android:minWidth="150dp"
+                        android:text="@string/start"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/imagbottom"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:src="@drawable/img_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
