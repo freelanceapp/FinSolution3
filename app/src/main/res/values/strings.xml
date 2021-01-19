@@ -32,5 +32,36 @@
     <string name="location">Location</string>
     <string name="open">open</string>
     <string name="close">Close</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="contactus">ContactUs</string>
+    <string name="aboutus">AboutUs</string>
+    <string name="terms_and_conditions">Terms And Conditions</string>
+    <string name="message">Message</string>
+    <string name="subject">Subject</string>
+    <string name="email">Email</string>
 
+    <string name="social_media">Social Media</string>
+    <string name="suc">Success</string>
+    <string name="not_avail_now">Not Avaliable Now</string>
+    <string name="link_inc">This link is incorrect</string>
+    <string name="inv_email">Invalid Email</string>
+    <string name="send">Send</string>
+    <string name="next">Next</string>
+    <string name="advisor">Advisor</string>
+    <string name="user">User</string>
+    <string name="user_type">User Type</string>
+    <string name="choose_user_type">Choose User Type</string>
+    <string name="advisor_offers_service">Advisor Offers service</string>
+    <string name="client_show_service">Client Show Service</string>
+    <string name="complete_registeration_info">Complete Registeration Info</string>
+    <string name="choose_category">Choose Category</string>
+    <string name="contact_number">contact number</string>
+    <string name="whats_number">Whats Number</string>
+    <string name="choose_subcategory">Choose Sub Category</string>
+    <string name="work_title">Work Title</string>
+    <string name="additional_detials_chooser">Additional Detials (Chooser)</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="my_package">Packge</string>
+    <string name="month">Month</string>
 </resources>

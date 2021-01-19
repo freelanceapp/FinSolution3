@@ -1,6 +1,7 @@
 package com.semicode.findsolution.ui.activity_home.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,7 +64,10 @@ public class Fragment_Home extends Fragment implements HomeFragmentView {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
+        binding.getRoot().setBackgroundColor(getResources().getColor(R.color.white));
+
         initView();
+
         return binding.getRoot();
     }
 
@@ -87,6 +91,7 @@ public class Fragment_Home extends Fragment implements HomeFragmentView {
 
         presenter.getSlider();
         presenter.getcategories();
+
     }
 
 

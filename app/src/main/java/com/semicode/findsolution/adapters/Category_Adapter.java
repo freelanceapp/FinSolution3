@@ -1,6 +1,7 @@
 package com.semicode.findsolution.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.semicode.findsolution.R;
 import com.semicode.findsolution.databinding.CatogryRowBinding;
 import com.semicode.findsolution.models.SingleCategoryModel;
+import com.semicode.findsolution.tags.Tags;
 import com.semicode.findsolution.ui.activity_home.HomeActivity;
 import com.semicode.findsolution.ui.activity_home.fragments.Fragment_Home;
 
@@ -53,7 +55,7 @@ public class Category_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         EventHolder eventHolder = (EventHolder) holder;
         eventHolder.binding.setCategorymodel(singleCategoryModelList.get(position));
-
+        Log.e("dldkldk", Tags.IMAGE_URL+singleCategoryModelList.get(position).getImage());
         eventHolder.itemView.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {

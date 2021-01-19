@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+<variable
+    name="model"
+    type="com.semicode.findsolution.models.SignUpAdvisorModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+        android:fillViewport="true"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingLeft="8dp"
+                android:paddingEnd="8dp"
+                android:paddingRight="8dp"
+
+                android:text="@string/complete_registeration_info"
+                android:textColorHint="@color/black"
+                android:textSize="17sp"
+
+                android:textStyle="bold" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="8dp">
+
+                <EditText
+                    android:id="@+id/edtname"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edt_shape"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray4"
+                    android:textSize="13sp"
+                    error="@{model.error_name}"
+                    android:text="@={model.name}"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingRight="8dp"
+
+                    android:text="@string/name"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toTopOf="@+id/edtname"
+                    app:layout_constraintStart_toStartOf="@+id/edtname"
+                    app:layout_constraintTop_toTopOf="@+id/edtname"
+
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/_8sdp"
+
+                android:layout_marginEnd="8dp">
+
+                <Spinner
+                    android:id="@+id/sp_cat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edt_shape"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray4"
+                    android:textSize="13sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+
+
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingRight="8dp"
+
+                    android:text="@string/choose_category"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toTopOf="@+id/sp_cat"
+                    app:layout_constraintStart_toStartOf="@+id/sp_cat"
+                    app:layout_constraintTop_toTopOf="@+id/sp_cat"
+
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="8dp"
+
+                android:background="@drawable/small_stroke_black"
+                android:padding="@dimen/_8sdp">
+
+                <Spinner
+                    android:id="@+id/spinworktype"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </Spinner>
+            </FrameLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/small_stroke_black"
+                android:gravity="top|start"
+                android:hint="@string/additional_detials_chooser"
+                android:inputType="textMultiLine"
+                android:padding="20dp"
+
+                android:singleLine="true"
+
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text="@={model.more_details}"
+
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="8dp"
+                >
+
+                <FrameLayout
+                    android:id="@+id/container_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_120sdp"
+                    android:background="@drawable/edt_shape"
+                    android:paddingTop="@dimen/_15sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <fragment
+                        android:id="@+id/map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+
+                        />
+
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingRight="8dp"
+
+                    android:text="@string/location"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toTopOf="@+id/container_map"
+                    app:layout_constraintStart_toStartOf="@+id/container_map"
+                    app:layout_constraintTop_toTopOf="@+id/container_map"
+
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:background="@drawable/small_stroke_black">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:visibility="gone"
+                        android:src="@drawable/telephone" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:hint="@string/work_title"
+                        android:lines="1"
+
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray9"
+                        android:textSize="14sp"
+                        android:text="@={model.work_title}"
+                        error="@{model.error_work}"
+                        />
+
+                </LinearLayout>
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:background="@drawable/small_stroke_black">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/telephone" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:hint="@string/contact_number"
+                        android:inputType="phone"
+                        android:lines="1"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray9"
+                        android:textSize="14sp"
+                        android:text="@={model.contact_number}"
+                        />
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:background="@drawable/small_stroke_black">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/whatsapp" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:hint="@string/whats_number"
+                        android:lines="1"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray9"
+                        android:textSize="14sp"
+                        android:text="@={model.whatsapp_number}"
+
+                        />
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/btnConfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/btn_change_lang"
+                android:minWidth="150dp"
+                android:text="@string/confirm"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

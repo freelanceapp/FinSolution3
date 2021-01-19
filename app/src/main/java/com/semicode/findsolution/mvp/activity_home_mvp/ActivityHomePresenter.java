@@ -12,6 +12,9 @@ import com.semicode.findsolution.models.UserModel;
 import com.semicode.findsolution.preferences.Preferences;
 import com.semicode.findsolution.remote.Api;
 import com.semicode.findsolution.tags.Tags;
+import com.semicode.findsolution.ui.activity_home.fragments.FragmentAboutUs;
+import com.semicode.findsolution.ui.activity_home.fragments.FragmentContactUs;
+import com.semicode.findsolution.ui.activity_home.fragments.FragmentTermsConditions;
 import com.semicode.findsolution.ui.activity_home.fragments.Fragment_Home;
 
 import java.io.IOException;
@@ -28,6 +31,9 @@ public class ActivityHomePresenter {
     private HomeActivityView view;
     private Context context;
     private Fragment_Home fragment_home;
+    private FragmentTermsConditions fragmentTermsConditions;
+    private FragmentAboutUs fragmentAboutUs;
+    private FragmentContactUs fragmentContactUs;
 
     public ActivityHomePresenter(HomeActivityView view, Context context, FragmentManager fragmentManager) {
         this.view = view;
@@ -42,18 +48,21 @@ public class ActivityHomePresenter {
 
 
     }
-    private void displayFragmentHome(){
+    public void displayFragmentHome(){
         if (fragment_home==null){
             fragment_home = Fragment_Home.newInstance();
         }
 
-//        if (fragment_appointment!=null&&fragment_appointment.isAdded()){
-//            fragmentManager.beginTransaction().hide(fragment_appointment).commit();
-//        }
-//
-//        if (fragment_medicine!=null&&fragment_medicine.isAdded()){
-//            fragmentManager.beginTransaction().hide(fragment_medicine).commit();
-//        }
+        if (fragmentAboutUs!=null&&fragmentAboutUs.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentAboutUs).commit();
+        }
+
+        if (fragmentTermsConditions!=null&&fragmentTermsConditions.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentTermsConditions).commit();
+        }
+        if (fragmentContactUs!=null&&fragmentContactUs.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentContactUs).commit();
+        }
 //
 //
 //        if (fragment_more!=null&&fragment_more.isAdded()){
@@ -68,7 +77,87 @@ public class ActivityHomePresenter {
     }
 
 
+    public void displayFragmentTerms(){
+        if (fragmentTermsConditions==null){
+            fragmentTermsConditions = FragmentTermsConditions.newInstance();
+        }
 
+        if (fragmentAboutUs!=null&&fragmentAboutUs.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentAboutUs).commit();
+        }
 
+        if (fragment_home!=null&&fragment_home.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_home).commit();
+        }
+        if (fragmentContactUs!=null&&fragmentContactUs.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentContactUs).commit();
+        }
+//
+//
+//        if (fragment_more!=null&&fragment_more.isAdded()){
+//            fragmentManager.beginTransaction().hide(fragment_more).commit();
+//        }
+
+        if (fragmentTermsConditions.isAdded()){
+            fragmentManager.beginTransaction().show(fragmentTermsConditions).commit();
+        }else {
+            fragmentManager.beginTransaction().add(R.id.fragment_container_view_tag,fragmentTermsConditions,"fragmentTermsConditions").commit();
+        }
+    }
+
+    public void displayFragmentAboutus(){
+        if (fragmentAboutUs==null){
+            fragmentAboutUs = FragmentAboutUs.newInstance();
+        }
+
+        if (fragmentTermsConditions!=null&&fragmentTermsConditions.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentTermsConditions).commit();
+        }
+
+        if (fragment_home!=null&&fragment_home.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_home).commit();
+        }
+        if (fragmentContactUs!=null&&fragmentContactUs.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentContactUs).commit();
+        }
+//
+//
+//        if (fragment_more!=null&&fragment_more.isAdded()){
+//            fragmentManager.beginTransaction().hide(fragment_more).commit();
+//        }
+
+        if (fragmentAboutUs.isAdded()){
+            fragmentManager.beginTransaction().show(fragmentAboutUs).commit();
+        }else {
+            fragmentManager.beginTransaction().add(R.id.fragment_container_view_tag,fragmentAboutUs,"fragmentAboutUs").commit();
+        }
+    }
+    public void displayFragmentContactus(){
+        if (fragmentContactUs==null){
+            fragmentContactUs = FragmentContactUs.newInstance();
+        }
+
+        if (fragmentTermsConditions!=null&&fragmentTermsConditions.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentTermsConditions).commit();
+        }
+
+        if (fragment_home!=null&&fragment_home.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_home).commit();
+        }
+        if (fragmentAboutUs!=null&&fragmentAboutUs.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentAboutUs).commit();
+        }
+//
+//
+//        if (fragment_more!=null&&fragment_more.isAdded()){
+//            fragmentManager.beginTransaction().hide(fragment_more).commit();
+//        }
+
+        if (fragmentContactUs.isAdded()){
+            fragmentManager.beginTransaction().show(fragmentContactUs).commit();
+        }else {
+            fragmentManager.beginTransaction().add(R.id.fragment_container_view_tag,fragmentContactUs,"fragmentContactUs").commit();
+        }
+    }
 
 }

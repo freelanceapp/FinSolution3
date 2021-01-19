@@ -4,6 +4,8 @@ package com.semicode.findsolution.services;
 import com.semicode.findsolution.models.AllAdvisorModel;
 import com.semicode.findsolution.models.AllCatogryModel;
 import com.semicode.findsolution.models.AllSubCatogryModel;
+import com.semicode.findsolution.models.PlaceGeocodeData;
+import com.semicode.findsolution.models.SettingModel;
 import com.semicode.findsolution.models.Slider_Model;
 import com.semicode.findsolution.models.UserModel;
 
@@ -24,7 +26,10 @@ import retrofit2.http.Query;
 
 public interface Service {
 
-
+    @GET("geocode/json")
+    Call<PlaceGeocodeData> getGeoData(@Query(value = "latlng") String latlng,
+                                      @Query(value = "language") String language,
+                                      @Query(value = "key") String key);
     @FormUrlEncoded
     @POST("api/login")
     Call<UserModel> login(@Field("phone_code") String phone_code,
@@ -73,6 +78,17 @@ public interface Service {
     Call<AllAdvisorModel> getsubcategoryData(
             @Field("category_id") String category_id,
             @Field("sub_category_id") String sub_category_id
+
+
+    );
+    @GET("api/app/info")
+    Call<SettingModel> getSetting();
+    @FormUrlEncoded
+    @POST("api/contactUs")
+    Call<ResponseBody> contactUs(@Field("name") String name,
+                                 @Field("email") String email,
+                                 @Field("subject") String subject,
+                                 @Field("message") String message
 
 
     );

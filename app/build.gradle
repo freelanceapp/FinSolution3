@@ -75,6 +75,8 @@ dependencies {
 
     implementation'com.github.shrikanth7698:Custom-Navigation-Drawer:v0.0.1'
 
-
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
 
 }

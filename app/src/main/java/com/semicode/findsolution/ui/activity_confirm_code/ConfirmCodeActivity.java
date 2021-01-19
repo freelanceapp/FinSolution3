@@ -20,6 +20,7 @@ import com.semicode.findsolution.mvp.activity_confirm_code_mvp.ActivityConfirmCo
 import com.semicode.findsolution.mvp.activity_confirm_code_mvp.ActivityConfirmCodeView;
 import com.semicode.findsolution.preferences.Preferences;
 import com.semicode.findsolution.share.Common;
+import com.semicode.findsolution.ui.activity_choose_user.ChooseUserActivity;
 import com.semicode.findsolution.ui.activity_home.HomeActivity;
 import com.semicode.findsolution.ui.activity_login.LoginActivity;
 import com.semicode.findsolution.ui.activity_sign_up.SignUpActivity;
@@ -123,7 +124,7 @@ public class ConfirmCodeActivity extends AppCompatActivity implements ActivityCo
 
     @Override
     public void onUserNoFound() {
-        Intent intent = new Intent(this, SignUpActivity.class);
+        Intent intent = new Intent(this, ChooseUserActivity.class);
         intent.putExtra("phone_code", phone_code);
         intent.putExtra("phone", phone);
         startActivity(intent);
