@@ -1,4 +1,4 @@
-package com.semicode.findsolution.mvp.activity_products_sell_mvp;
+package com.semicode.findsolution.mvp.activity_department_detials_mvp;
 
 
 import com.semicode.findsolution.models.AllAdvisorModel;

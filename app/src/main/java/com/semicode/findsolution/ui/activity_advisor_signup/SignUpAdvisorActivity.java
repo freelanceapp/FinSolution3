@@ -19,9 +19,12 @@ import android.os.Looper;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
+
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,13 +51,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.semicode.findsolution.R;
+import com.semicode.findsolution.adapters.SpinnerCategoryAdapter;
+import com.semicode.findsolution.adapters.SpinnerSubCategoryAdapter;
 import com.semicode.findsolution.databinding.ActivitySignUpAdvisorBinding;
 import com.semicode.findsolution.databinding.ActivitySignUpBinding;
 import com.semicode.findsolution.databinding.DialogSelectImageBinding;
 import com.semicode.findsolution.language.Language;
+import com.semicode.findsolution.models.AllCatogryModel;
+import com.semicode.findsolution.models.AllSubCatogryModel;
 import com.semicode.findsolution.models.PlaceGeocodeData;
 import com.semicode.findsolution.models.SignUpAdvisorModel;
 import com.semicode.findsolution.models.SignUpModel;
+import com.semicode.findsolution.models.SingleCategoryModel;
+import com.semicode.findsolution.models.SingleSubCategoryModel;
 import com.semicode.findsolution.models.UserModel;
 import com.semicode.findsolution.mvp.activity_sign_up_mvp.ActivitySignUpPresenter;
 import com.semicode.findsolution.mvp.activity_sign_up_mvp.ActivitySignUpView;
@@ -63,10 +72,12 @@ import com.semicode.findsolution.mvp.activity_signupadvisor_mvp.ActivitySignUpAd
 import com.semicode.findsolution.preferences.Preferences;
 import com.semicode.findsolution.share.Common;
 import com.semicode.findsolution.ui.activity_home.HomeActivity;
+import com.semicode.findsolution.ui.activity_packges.PackgesActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.paperdb.Paper;
@@ -98,6 +109,11 @@ public class SignUpAdvisorActivity extends AppCompatActivity implements Activity
     private LocationCallback locationCallback;
     private final String fineLocPerm = Manifest.permission.ACCESS_FINE_LOCATION;
     private final int loc_req = 1225;
+    private SpinnerCategoryAdapter spinnerCategoryAdapter;
+    private List<SingleCategoryModel> singleCategoryModelList;
+    private SpinnerSubCategoryAdapter spinnerSubCategoryAdapter;
+    private List<SingleSubCategoryModel> singleSubCategoryModelList;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -126,17 +142,59 @@ public class SignUpAdvisorActivity extends AppCompatActivity implements Activity
     }
 
     private void initView() {
+        singleCategoryModelList = new ArrayList<>();
+        singleSubCategoryModelList = new ArrayList<>();
         preferences = Preferences.getInstance();
         Paper.init(this);
         lang = Paper.book().read("lang", "ar");
         model = new SignUpAdvisorModel(phone_code, phone);
         binding.setModel(model);
         presenter = new ActivitySignUpAdvisorPresenter(this, this);
-
+        presenter.getcategories();
         binding.btnConfirm.setOnClickListener(view -> {
             presenter.checkData(model);
         });
+        spinnerCategoryAdapter = new SpinnerCategoryAdapter(singleCategoryModelList, this);
 
+        spinnerSubCategoryAdapter = new SpinnerSubCategoryAdapter(singleSubCategoryModelList, this);
+        binding.spCat.setAdapter(spinnerCategoryAdapter);
+        binding.spsubcat.setAdapter(spinnerSubCategoryAdapter);
+        binding.spCat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) {
+                    model.setCategory_id(0);
+                } else {
+                    model.setCategory_id(singleCategoryModelList.get(i).getId());
+                    presenter.getsubcategories(singleCategoryModelList.get(i).getId());
+
+                }
+                //    presenter.getproducts(userModel, cat, query);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        binding.spsubcat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) {
+                    model.setSub_category_id(0);
+                } else {
+                    model.setSub_category_id(singleSubCategoryModelList.get(i).getId());
+                    // presenter.getsubcategories(singleCategoryModelList.get(i).getId());
+
+                }
+                //    presenter.getproducts(userModel, cat, query);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         createImageDialogAlert();
 
         updateUI();
@@ -188,6 +246,7 @@ public class SignUpAdvisorActivity extends AppCompatActivity implements Activity
 
         }
     }
+
     public void AddMarker(double lat, double lng, String address) {
 
         this.lat = lat;
@@ -204,7 +263,6 @@ public class SignUpAdvisorActivity extends AppCompatActivity implements Activity
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), zoom));
     }
-
 
 
     @Override
@@ -314,7 +372,7 @@ public class SignUpAdvisorActivity extends AppCompatActivity implements Activity
         binding.btnCancel.setOnClickListener(v -> dialog.dismiss()
 
         );
-       // dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_congratulation_animation;
+        // dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_congratulation_animation;
         dialog.setCanceledOnTouchOutside(false);
         dialog.setView(binding.getRoot());
     }
@@ -412,7 +470,7 @@ public class SignUpAdvisorActivity extends AppCompatActivity implements Activity
 
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             uri = getUriFromBitmap(bitmap);
-           // binding.icon.setVisibility(View.GONE);
+            // binding.icon.setVisibility(View.GONE);
 
             if (uri != null) {
                 model.setImageUrl(uri.toString());
@@ -439,11 +497,14 @@ public class SignUpAdvisorActivity extends AppCompatActivity implements Activity
     }
 
 
-
     @Override
     public void onLoad() {
-        dialog2 = Common.createProgressDialog(this, getString(R.string.wait));
-        dialog2.setCancelable(false);
+        if (dialog2 == null) {
+            dialog2 = Common.createProgressDialog(this, getString(R.string.wait));
+            dialog2.setCancelable(false);
+        } else {
+            dialog2.dismiss();
+        }
         dialog2.show();
     }
 
@@ -470,16 +531,31 @@ public class SignUpAdvisorActivity extends AppCompatActivity implements Activity
     }
 
     @Override
-    public void onSignupValid(UserModel userModel) {
-        preferences.create_update_userdata(SignUpAdvisorActivity.this, userModel);
-
-
-        Intent intent = new Intent(this, HomeActivity.class);
-
+    public void choosepackges() {
+        Intent intent = new Intent(SignUpAdvisorActivity.this, PackgesActivity.class);
+        intent.putExtra("data", model);
         startActivity(intent);
-        finish();
+    }
+
+    @Override
+    public void onSuccess(AllSubCatogryModel body) {
+        singleSubCategoryModelList.clear();
+        singleSubCategoryModelList.add(new SingleSubCategoryModel(getResources().getString(R.string.choose_category)));
+
+        singleSubCategoryModelList.addAll(body.getData());
+        spinnerSubCategoryAdapter.notifyDataSetChanged();
 
     }
+
+    @Override
+    public void onSuccesscategory(AllCatogryModel body) {
+        singleCategoryModelList.clear();
+
+        singleCategoryModelList.add(new SingleCategoryModel(getResources().getString(R.string.choose_category)));
+        singleCategoryModelList.addAll(body.getData());
+        spinnerCategoryAdapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public void onFailed() {

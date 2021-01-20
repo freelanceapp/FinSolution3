@@ -23,10 +23,10 @@ import com.semicode.findsolution.models.SingleCategoryModel;
 import com.semicode.findsolution.models.SingleSubCategoryModel;
 import com.semicode.findsolution.models.SingleUserModel;
 import com.semicode.findsolution.models.UserModel;
-import com.semicode.findsolution.mvp.activity_products_sell_mvp.ActivityDepartmentDetialsPresenter;
-import com.semicode.findsolution.mvp.activity_products_sell_mvp.DepartmentDetialsActivityView;
+import com.semicode.findsolution.mvp.activity_department_detials_mvp.ActivityDepartmentDetialsPresenter;
+import com.semicode.findsolution.mvp.activity_department_detials_mvp.DepartmentDetialsActivityView;
 import com.semicode.findsolution.preferences.Preferences;
-import com.semicode.findsolution.ui.activity_edit_profile.AdvisorDetialsActivity;
+import com.semicode.findsolution.ui.activity_advisor_detials.AdvisorDetialsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

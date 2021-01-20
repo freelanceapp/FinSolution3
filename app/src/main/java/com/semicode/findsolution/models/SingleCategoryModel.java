@@ -13,6 +13,10 @@ public class SingleCategoryModel implements Serializable {
     private String created_at;
     private String updated_at;
 
+    public SingleCategoryModel(String title) {
+        this.title = title;
+    }
+
     public int getId() {
         return id;
     }

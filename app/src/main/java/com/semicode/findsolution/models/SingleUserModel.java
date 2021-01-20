@@ -35,7 +35,10 @@ public class SingleUserModel  implements Serializable {
     private String token;
     private SingleCategoryModel category;
     private SingleSubCategoryModel sub_category;
-
+   private String success_url;
+    private String canceled_url;
+    private String declined_url;
+    private String payment_data;
     public int getId() {
         return id;
     }
@@ -162,5 +165,25 @@ public class SingleUserModel  implements Serializable {
 
     public SingleSubCategoryModel getSub_category() {
         return sub_category;
+    }
+
+    public String getSuccess_url() {
+        return success_url;
+    }
+
+    public String getCanceled_url() {
+        return canceled_url;
+    }
+
+    public String getDeclined_url() {
+        return declined_url;
+    }
+
+    public String getPayment_data() {
+        return payment_data;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

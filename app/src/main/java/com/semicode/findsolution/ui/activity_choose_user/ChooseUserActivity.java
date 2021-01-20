@@ -17,6 +17,7 @@ import androidx.databinding.DataBindingUtil;
 import com.semicode.findsolution.R;
 import com.semicode.findsolution.databinding.ActivityChooseUserBinding;
 import com.semicode.findsolution.language.Language;
+import com.semicode.findsolution.ui.activity_advisor_signup.SignUpAdvisorActivity;
 import com.semicode.findsolution.ui.activity_sign_up.SignUpActivity;
 
 import io.paperdb.Paper;
@@ -26,6 +27,7 @@ public class ChooseUserActivity extends AppCompatActivity {
     private String lang = "";
     private String phone_code = "";
     private String phone = "";
+    private String type;
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -57,28 +59,40 @@ public class ChooseUserActivity extends AppCompatActivity {
         }
     }
     private void initView() {
+        binding.flAdvisor.setBackgroundResource(R.drawable.small_rounded_red_strock);
+        binding.flclient.setBackgroundResource(0);
+        binding.btnNext.setVisibility(View.VISIBLE);
+        type="1";
         binding.cardAdvisor.setOnClickListener(view -> {
-            lang = "ar";
             binding.flAdvisor.setBackgroundResource(R.drawable.small_rounded_red_strock);
             binding.flclient.setBackgroundResource(0);
             binding.btnNext.setVisibility(View.VISIBLE);
+            type="1";
 
         });
 
         binding.cardclient.setOnClickListener(view -> {
-            lang = "en";
             binding.flAdvisor.setBackgroundResource(0);
             binding.flclient.setBackgroundResource(R.drawable.small_rounded_red_strock);
+            type="2";
         });
 
 binding.btnNext.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+        if(type.equals("2")){
         Intent intent = new Intent(ChooseUserActivity.this, SignUpActivity.class);
         intent.putExtra("phone_code", phone_code);
         intent.putExtra("phone", phone);
         startActivity(intent);
-        finish();
+        finish();}
+        else if(type.equals("1")){
+            Intent intent = new Intent(ChooseUserActivity.this, SignUpAdvisorActivity.class);
+            intent.putExtra("phone_code", phone_code);
+            intent.putExtra("phone", phone);
+            startActivity(intent);
+            finish();
+        }
     }
 });
 

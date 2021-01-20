@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<variable
-    name="model"
-    type="com.semicode.findsolution.models.SignUpAdvisorModel" />
+
+        <variable
+            name="model"
+            type="com.semicode.findsolution.models.SignUpAdvisorModel" />
     </data>
 
     <ScrollView
@@ -50,6 +51,7 @@
 
                 <EditText
                     android:id="@+id/edtname"
+                    error="@{model.error_name}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
@@ -57,12 +59,10 @@
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:singleLine="true"
+                    android:text="@={model.name}"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray4"
-                    android:textSize="13sp"
-                    error="@{model.error_name}"
-                    android:text="@={model.name}"
-                    />
+                    android:textSize="13sp" />
 
 
                 <TextView
@@ -92,37 +92,44 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="@dimen/_8sdp"
 
                 android:layout_marginEnd="8dp">
 
-                <Spinner
-                    android:id="@+id/sp_cat"
+                <FrameLayout
+                    android:id="@+id/flcat"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/edt_shape"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray4"
-                    android:textSize="13sp"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    >
 
 
-                    />
+                    <Spinner
+                        android:id="@+id/sp_cat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_3sdp"
+                        android:paddingLeft="8dp"
+
+                        android:paddingRight="8dp"
+
+
+                        />
+                </FrameLayout>
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="@dimen/_15sdp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:background="@color/white"
                     android:gravity="center"
                     android:paddingStart="8dp"
@@ -133,9 +140,9 @@
                     android:text="@string/choose_category"
                     android:textColorHint="@color/colorPrimary"
                     android:textSize="17sp"
-                    app:layout_constraintBottom_toTopOf="@+id/sp_cat"
-                    app:layout_constraintStart_toStartOf="@+id/sp_cat"
-                    app:layout_constraintTop_toTopOf="@+id/sp_cat"
+                    app:layout_constraintBottom_toTopOf="@+id/flcat"
+                    app:layout_constraintStart_toStartOf="@+id/flcat"
+                    app:layout_constraintTop_toTopOf="@+id/flcat"
 
                     />
 
@@ -153,7 +160,7 @@
                 android:padding="@dimen/_8sdp">
 
                 <Spinner
-                    android:id="@+id/spinworktype"
+                    android:id="@+id/spsubcat"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -174,9 +181,9 @@
 
                 android:singleLine="true"
 
+                android:text="@={model.more_details}"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:text="@={model.more_details}"
 
                 />
 
@@ -185,8 +192,7 @@
                 android:layout_height="@dimen/_130sdp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="8dp"
-                >
+                android:layout_marginEnd="8dp">
 
                 <FrameLayout
                     android:id="@+id/container_map"
@@ -194,6 +200,7 @@
                     android:layout_height="@dimen/_120sdp"
                     android:background="@drawable/edt_shape"
                     android:paddingTop="@dimen/_15sdp"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -202,8 +209,9 @@
                         android:name="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
-
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+android:layout_marginBottom="@dimen/_8sdp"
                         />
 
 
@@ -233,6 +241,7 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
@@ -253,10 +262,11 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:visibility="gone"
-                        android:src="@drawable/telephone" />
+                        android:src="@drawable/telephone"
+                        android:visibility="gone" />
 
                     <EditText
+                        error="@{model.error_work}"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
@@ -264,19 +274,18 @@
                         android:layout_weight="1"
                         android:background="@color/transparent"
                         android:hint="@string/work_title"
-                        android:lines="1"
 
+                        android:lines="1"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
+                        android:text="@={model.work_title}"
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray9"
-                        android:textSize="14sp"
-                        android:text="@={model.work_title}"
-                        error="@{model.error_work}"
-                        />
+                        android:textSize="14sp" />
 
                 </LinearLayout>
             </FrameLayout>
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
@@ -311,11 +320,10 @@
                         android:lines="1"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
+                        android:text="@={model.contact_number}"
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray9"
-                        android:textSize="14sp"
-                        android:text="@={model.contact_number}"
-                        />
+                        android:textSize="14sp" />
 
                 </LinearLayout>
             </FrameLayout>
@@ -353,10 +361,10 @@
                         android:lines="1"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
+                        android:text="@={model.whatsapp_number}"
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray9"
                         android:textSize="14sp"
-                        android:text="@={model.whatsapp_number}"
 
                         />
 

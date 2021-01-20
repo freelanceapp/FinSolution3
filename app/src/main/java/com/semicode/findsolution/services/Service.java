@@ -3,6 +3,7 @@ package com.semicode.findsolution.services;
 
 import com.semicode.findsolution.models.AllAdvisorModel;
 import com.semicode.findsolution.models.AllCatogryModel;
+import com.semicode.findsolution.models.AllPackgesModel;
 import com.semicode.findsolution.models.AllSubCatogryModel;
 import com.semicode.findsolution.models.PlaceGeocodeData;
 import com.semicode.findsolution.models.SettingModel;
@@ -30,6 +31,7 @@ public interface Service {
     Call<PlaceGeocodeData> getGeoData(@Query(value = "latlng") String latlng,
                                       @Query(value = "language") String language,
                                       @Query(value = "key") String key);
+
     @FormUrlEncoded
     @POST("api/login")
     Call<UserModel> login(@Field("phone_code") String phone_code,
@@ -81,8 +83,10 @@ public interface Service {
 
 
     );
+
     @GET("api/app/info")
     Call<SettingModel> getSetting();
+
     @FormUrlEncoded
     @POST("api/contactUs")
     Call<ResponseBody> contactUs(@Field("name") String name,
@@ -90,6 +94,41 @@ public interface Service {
                                  @Field("subject") String subject,
                                  @Field("message") String message
 
+
+    );
+
+
+    @GET("api/allRegisterPackages")
+    Call<AllPackgesModel> getpakges(
+
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/adviserRegister")
+    Call<UserModel> advisorregister(@Field("phone_code") String phone_code,
+                                    @Field("phone") String phone,
+                                    @Field("name") String name,
+                                    @Field("software_type") String software_type,
+                                    @Field("category_id") String category_id,
+                                    @Field("sub_category_id") String sub_category_id,
+                                    @Field("current_package_id") String current_package_id,
+                                    @Field("work_title") String work_title,
+                                    @Field("more_details") String more_details,
+                                    @Field("contact_number") String contact_number,
+                                    @Field("whatsapp_number") String whatsapp_number,
+                                    @Field("address") String address,
+                                    @Field("latitude") String latitude,
+                                    @Field("longitude") String longitude
+
+
+
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/userDetails")
+    Call<UserModel> getprofile(@Field("user_id") int phone_code
 
     );
 

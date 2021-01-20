@@ -1,42 +1,13 @@
-package com.semicode.findsolution.ui.activity_edit_profile;
+package com.semicode.findsolution.ui.activity_advisor_detials;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.location.Location;
-import android.location.LocationListener;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
-import android.provider.MediaStore;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -53,10 +24,6 @@ import com.semicode.findsolution.models.SingleUserModel;
 import com.semicode.findsolution.mvp.activity_advisor_detials_mvp.ActivityAdvisorDetialsPresenter;
 import com.semicode.findsolution.mvp.activity_advisor_detials_mvp.AdvisorDetialsActivityView;
 import com.semicode.findsolution.preferences.Preferences;
-import com.squareup.picasso.Picasso;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 
 import io.paperdb.Paper;
 
@@ -70,6 +37,7 @@ public class AdvisorDetialsActivity extends AppCompatActivity implements Advisor
     private GoogleMap mMap;
     private Marker marker;
     private float zoom = 15.0f;
+    private String lang;
 
 
     @Override
@@ -97,7 +65,9 @@ public class AdvisorDetialsActivity extends AppCompatActivity implements Advisor
 
         presenter = new ActivityAdvisorDetialsPresenter(this, this);
         binding.setModel(userModel);
-
+        Paper.init(this);
+        lang = Paper.book().read("lang", "ar");
+        binding.setLang(lang);
 
         binding.flback.setOnClickListener(view -> {
            presenter.backPress();

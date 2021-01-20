@@ -13,6 +13,10 @@ public class SingleSubCategoryModel implements Serializable {
     private String created_at;
     private String updated_at;
 
+    public SingleSubCategoryModel(String title) {
+        this.title = title;
+    }
+
     public int getId() {
         return id;
     }
