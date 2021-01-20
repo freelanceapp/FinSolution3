@@ -9,7 +9,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_165sdp"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/_8sdp"
     android:padding="@dimen/_5sdp">
 
@@ -87,7 +87,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cons"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="3"
 
