@@ -38,7 +38,7 @@ public class SingleUserModel  implements Serializable {
    private String success_url;
     private String canceled_url;
     private String declined_url;
-    private String payment_data;
+    private String url;
     public int getId() {
         return id;
     }
@@ -179,8 +179,8 @@ public class SingleUserModel  implements Serializable {
         return declined_url;
     }
 
-    public String getPayment_data() {
-        return payment_data;
+    public String getUrl() {
+        return url;
     }
 
     public void setToken(String token) {

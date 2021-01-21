@@ -150,7 +150,7 @@ presenter.getprofile(userModel.getData().getId());
 
     @Override
     public void onSignupValid(UserModel userModel) {
-if(userModel.getData().getSuccess_url().isEmpty()||userModel.getData().getSuccess_url()==null){
+if(userModel.getData().getUrl().isEmpty()||userModel.getData().getUrl()==null){
         preferences.create_update_userdata(PackgesActivity.this, userModel);
 
 
@@ -161,7 +161,7 @@ if(userModel.getData().getSuccess_url().isEmpty()||userModel.getData().getSucces
 else {
     this.userModel=userModel;
     Intent intent = new Intent(this, WebViewActivity.class);
-intent.putExtra("url",userModel.getData().getSuccess_url());
+intent.putExtra("url",userModel.getData().getUrl());
     startActivityForResult(intent,1);
 
     }
