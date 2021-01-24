@@ -543,7 +543,7 @@ public class SignUpAdvisorActivity extends AppCompatActivity implements Activity
     @Override
     public void onSuccess(AllSubCatogryModel body) {
         singleSubCategoryModelList.clear();
-        singleSubCategoryModelList.add(new SingleSubCategoryModel(getResources().getString(R.string.choose_category)));
+        singleSubCategoryModelList.add(new SingleSubCategoryModel(getResources().getString(R.string.choose_subcategory)));
 
         singleSubCategoryModelList.addAll(body.getData());
         spinnerSubCategoryAdapter.notifyDataSetChanged();
