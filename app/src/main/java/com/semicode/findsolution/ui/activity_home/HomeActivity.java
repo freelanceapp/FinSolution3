@@ -82,11 +82,11 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
                 binding.tv3.setTextColor(getResources().getColor(R.color.gray9));
                 binding.tv4.setTextColor(getResources().getColor(R.color.colorAccent));
                 binding.tv5.setTextColor(getResources().getColor(R.color.gray9));
-                binding.image1.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image2.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image3.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image4.setColorFilter(R.color.colorAccent,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image5.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image1.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image2.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image3.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image4.setColorFilter(R.color.colorAccent, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image5.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
                 presenter.displayFragmentAboutus();
 
             }
@@ -101,11 +101,11 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
                 binding.tv3.setTextColor(getResources().getColor(R.color.gray9));
                 binding.tv4.setTextColor(getResources().getColor(R.color.gray9));
                 binding.tv5.setTextColor(getResources().getColor(R.color.colorAccent));
-                binding.image1.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image2.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image3.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image4.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image5.setColorFilter(R.color.colorAccent,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image1.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image2.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image3.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image4.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image5.setColorFilter(R.color.colorAccent, android.graphics.PorterDuff.Mode.MULTIPLY);
                 presenter.displayFragmentTerms();
             }
         });
@@ -118,50 +118,54 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
                 binding.tv3.setTextColor(getResources().getColor(R.color.colorAccent));
                 binding.tv4.setTextColor(getResources().getColor(R.color.gray9));
                 binding.tv5.setTextColor(getResources().getColor(R.color.gray9));
-                binding.image1.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image2.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image3.setColorFilter(R.color.colorAccent,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image4.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image5.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image1.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image2.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image3.setColorFilter(R.color.colorAccent, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image4.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image5.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
 
                 presenter.displayFragmentContactus();
 
             }
         });
-binding.llhome.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        binding.drawar.closeDrawer(Gravity.RIGHT);
-        binding.tv1.setTextColor(getResources().getColor(R.color.colorAccent));
-        binding.tv2.setTextColor(getResources().getColor(R.color.gray9));
-        binding.tv3.setTextColor(getResources().getColor(R.color.gray9));
-        binding.tv4.setTextColor(getResources().getColor(R.color.gray9));
-        binding.tv5.setTextColor(getResources().getColor(R.color.gray9));
-        binding.image1.setColorFilter(R.color.colorAccent,android.graphics.PorterDuff.Mode.MULTIPLY);
-        binding.image2.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-        binding.image3.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-        binding.image4.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-        binding.image5.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-        presenter.displayFragmentHome();
-    }
-});
+        binding.llhome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.drawar.closeDrawer(Gravity.RIGHT);
+                binding.tv1.setTextColor(getResources().getColor(R.color.colorAccent));
+                binding.tv2.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv3.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv4.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv5.setTextColor(getResources().getColor(R.color.gray9));
+                binding.image1.setColorFilter(R.color.colorAccent, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image2.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image3.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image4.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image5.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                presenter.displayFragmentHome();
+            }
+        });
         binding.llprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 binding.drawar.closeDrawer(Gravity.RIGHT);
-                if(userModel!=null){
-                binding.tv1.setTextColor(getResources().getColor(R.color.gray9));
-                binding.tv2.setTextColor(getResources().getColor(R.color.colorAccent));
-                binding.tv3.setTextColor(getResources().getColor(R.color.gray9));
-                binding.tv4.setTextColor(getResources().getColor(R.color.gray9));
-                binding.tv5.setTextColor(getResources().getColor(R.color.gray9));
-                binding.image1.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image2.setColorFilter(R.color.colorAccent,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image3.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image4.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                binding.image5.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
-                presenter.displayFragmentProfile();}
-                else {
+                if (userModel != null) {
+                    binding.tv1.setTextColor(getResources().getColor(R.color.gray9));
+                    binding.tv2.setTextColor(getResources().getColor(R.color.colorAccent));
+                    binding.tv3.setTextColor(getResources().getColor(R.color.gray9));
+                    binding.tv4.setTextColor(getResources().getColor(R.color.gray9));
+                    binding.tv5.setTextColor(getResources().getColor(R.color.gray9));
+                    binding.image1.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                    binding.image2.setColorFilter(R.color.colorAccent, android.graphics.PorterDuff.Mode.MULTIPLY);
+                    binding.image3.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                    binding.image4.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                    binding.image5.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
+                    if (userModel.getData().getUser_type().equals("advisor")) {
+                        presenter.displayFragmentProfile();
+                    } else {
+
+                    }
+                } else {
 
                 }
             }
