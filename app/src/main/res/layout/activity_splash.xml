@@ -11,15 +11,14 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
             android:src="@drawable/logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:transitionName="logo"
-            android:padding="@dimen/_24sdp"
             />
 
 

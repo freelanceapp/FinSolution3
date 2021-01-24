@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:text='@{model.price+""}'
                 android:textColor="@color/yellow"
-                android:textSize="@dimen/_30sdp" />
+                android:textSize="@dimen/_12sdp" />
 
             <TextView
                 android:id="@+id/item_rv_Sub_tv_Currency"
@@ -61,8 +61,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ryal"
                 android:textColor="@color/black"
-                android:textSize="@dimen/medium_text"
-
+                android:textSize="@dimen/_11sdp"
+android:layout_marginTop="@dimen/_1sdp"
 
                 />
         </LinearLayout>
@@ -72,7 +72,7 @@
     <Button
         android:id="@+id/btsubscribe"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_30sdp"
         android:background="@color/colorAccent"
         android:text="@string/subscribe"
         app:cornerRadius="@dimen/_5sdp"
@@ -83,6 +83,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cons"
         android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -103,7 +104,7 @@
             android:layout_margin="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:text="@string/my_package"
-            android:textSize="@dimen/medium_text"
+            android:textSize="@dimen/_10sdp"
          app:layout_constraintEnd_toStartOf="@+id/month_title"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +116,7 @@
             android:layout_height="wrap_content"
             android:text='@{model.number_of_months+""}'
             android:textColor="@color/black"
-            android:textSize="@dimen/_30sdp"
+            android:textSize="@dimen/_14sdp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textView7"
             app:layout_constraintStart_toEndOf="@+id/textView7"
@@ -128,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/month"
-            android:textSize="@dimen/medium_text"
+            android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@+id/month_title"
             app:layout_constraintStart_toEndOf="@+id/month_title"
             app:layout_constraintTop_toTopOf="@+id/month_title"

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -84,6 +85,14 @@ public class ConfirmCodeActivity extends AppCompatActivity implements ActivityCo
             if (canSend) {
                 canSend = false;
                 presenter.resendCode();
+            }
+        });
+        binding.flback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ConfirmCodeActivity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

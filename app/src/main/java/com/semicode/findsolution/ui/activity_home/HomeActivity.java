@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
     private Preferences preferences;
     private UserModel userModel;
     private FragmentManager fragmentManager;
-    private ActionBarDrawerToggle toggle ;
+    private ActionBarDrawerToggle toggle;
     private float lastTranslate = 0.0f;
 
 
@@ -58,74 +58,119 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
 
     private void initView() {
         fragmentManager = getSupportFragmentManager();
-        presenter = new ActivityHomePresenter(this, this,fragmentManager);
-        toggle = new ActionBarDrawerToggle(this, binding.drawar, binding.toolbar, R.string.open, R.string.close){
+        presenter = new ActivityHomePresenter(this, this, fragmentManager);
+        toggle = new ActionBarDrawerToggle(this, binding.drawar, binding.toolbar, R.string.open, R.string.close) {
             @SuppressLint("NewApi")
-            public void onDrawerSlide(View drawerView, float slideOffset)
-            {
+            public void onDrawerSlide(View drawerView, float slideOffset) {
                 slide(slideOffset);
 
             }
         };
-     //   toggle.setDrawerIndicatorEnabled(false);
+        //   toggle.setDrawerIndicatorEnabled(false);
 
         toggle.syncState();
         binding.toolbar.setNavigationIcon(R.drawable.ic_menu);
 
         binding.drawar.setDrawerListener(toggle);
-binding.llabout.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        binding.drawar.closeDrawer(Gravity.RIGHT);
-        presenter.displayFragmentAboutus();
+        binding.llabout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.drawar.closeDrawer(Gravity.RIGHT);
+                binding.drawar.closeDrawer(Gravity.RIGHT);
+                binding.tv1.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv2.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv3.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv4.setTextColor(getResources().getColor(R.color.colorAccent));
+                binding.tv5.setTextColor(getResources().getColor(R.color.gray9));
+                binding.image1.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image2.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image3.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image4.setColorFilter(R.color.colorAccent,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image5.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                presenter.displayFragmentAboutus();
 
-    }
-});
-binding.llterms.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        binding.drawar.closeDrawer(Gravity.RIGHT);
-
-        presenter.displayFragmentTerms();
-    }
-});
+            }
+        });
+        binding.llterms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.drawar.closeDrawer(Gravity.RIGHT);
+                binding.drawar.closeDrawer(Gravity.RIGHT);
+                binding.tv1.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv2.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv3.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv4.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv5.setTextColor(getResources().getColor(R.color.colorAccent));
+                binding.image1.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image2.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image3.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image4.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image5.setColorFilter(R.color.colorAccent,android.graphics.PorterDuff.Mode.MULTIPLY);
+                presenter.displayFragmentTerms();
+            }
+        });
         binding.llcontactus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 binding.drawar.closeDrawer(Gravity.RIGHT);
+                binding.tv1.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv2.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv3.setTextColor(getResources().getColor(R.color.colorAccent));
+                binding.tv4.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv5.setTextColor(getResources().getColor(R.color.gray9));
+                binding.image1.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image2.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image3.setColorFilter(R.color.colorAccent,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image4.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image5.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
 
                 presenter.displayFragmentContactus();
+
             }
         });
-
+binding.llhome.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        binding.drawar.closeDrawer(Gravity.RIGHT);
+        binding.tv1.setTextColor(getResources().getColor(R.color.colorAccent));
+        binding.tv2.setTextColor(getResources().getColor(R.color.gray9));
+        binding.tv3.setTextColor(getResources().getColor(R.color.gray9));
+        binding.tv4.setTextColor(getResources().getColor(R.color.gray9));
+        binding.tv5.setTextColor(getResources().getColor(R.color.gray9));
+        binding.image1.setColorFilter(R.color.colorAccent,android.graphics.PorterDuff.Mode.MULTIPLY);
+        binding.image2.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+        binding.image3.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+        binding.image4.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+        binding.image5.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+        presenter.displayFragmentHome();
     }
-    public void slide(float slideOffset){
-        float moveFactor = (float) ((binding.cons.getWidth() * slideOffset)/1.5);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-        {
+});
+    }
+
+    public void slide(float slideOffset) {
+        float moveFactor = (float) ((binding.cons.getWidth() * slideOffset) / 1.5);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             binding.cons.setTranslationX(-moveFactor);
-            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)binding.cons.getLayoutParams();
-            if(binding.drawar.isOpen()){
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.cons.getLayoutParams();
+            if (binding.drawar.isOpen()) {
                 params.setMargins(0, 0, 0, 0);
+            } else {
+                params.setMargins(0, 200, 0, 200);
             }
-            else {
-            params.setMargins(0, 200, 0, 200);}
             binding.cons.setLayoutParams(params);
 
-        }
-        else
-        {
+        } else {
             TranslateAnimation anim = new TranslateAnimation(lastTranslate, -moveFactor, 0.0f, 0.0f);
             anim.setDuration(0);
             anim.setFillAfter(true);
 
             lastTranslate = -moveFactor;
-            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)binding.cons.getLayoutParams();
-            if(binding.drawar.isOpen()){
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) binding.cons.getLayoutParams();
+            if (binding.drawar.isOpen()) {
                 params.setMargins(0, 0, 0, 0);
+            } else {
+                params.setMargins(0, 200, 0, 200);
             }
-            else {
-                params.setMargins(0, 200, 0, 200);}
             binding.cons.setLayoutParams(params);
             binding.cons.startAnimation(anim);
 
