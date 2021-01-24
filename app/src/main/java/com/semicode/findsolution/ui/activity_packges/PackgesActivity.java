@@ -61,7 +61,7 @@ public class PackgesActivity extends AppCompatActivity implements PackgeActivity
 
     private void getdatafromIntent() {
         Intent intent = getIntent();
-        signUpAdvisorModel=(SignUpAdvisorModel)intent.getSerializableExtra("data");
+        signUpAdvisorModel = (SignUpAdvisorModel) intent.getSerializableExtra("data");
     }
 
     private void initView() {
@@ -78,7 +78,7 @@ public class PackgesActivity extends AppCompatActivity implements PackgeActivity
         });
         packges_adapter = new Packges_Adapter(singlePakcgesModels, this);
 
-        binding.recView.setLayoutManager(new GridLayoutManager(this,2));
+        binding.recView.setLayoutManager(new GridLayoutManager(this, 2));
         binding.recView.setAdapter(packges_adapter);
         presenter = new ActivityPackgePresenter(this, this);
         presenter.getpackge();
@@ -95,7 +95,6 @@ public class PackgesActivity extends AppCompatActivity implements PackgeActivity
     public void onFinished() {
         finish();
     }
-
 
 
     @Override
@@ -143,41 +142,39 @@ public class PackgesActivity extends AppCompatActivity implements PackgeActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1){
-presenter.getprofile(userModel.getData().getId());
+        if (requestCode == 1) {
+            presenter.getprofile(userModel.getData().getId());
         }
     }
 
     @Override
     public void onSignupValid(UserModel userModel) {
-if(userModel.getData().getUrl().isEmpty()||userModel.getData().getUrl()==null){
-        preferences.create_update_userdata(PackgesActivity.this, userModel);
+        if (userModel.getData().getUrl().isEmpty() || userModel.getData().getUrl() == null) {
+            preferences.create_update_userdata(PackgesActivity.this, userModel);
 
 
-        Intent intent = new Intent(this, HomeActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
 
-        startActivity(intent);
-        finish();}
-else {
-    this.userModel=userModel;
-    Intent intent = new Intent(this, WebViewActivity.class);
-intent.putExtra("url",userModel.getData().getUrl());
-    startActivityForResult(intent,1);
+            startActivity(intent);
+            finish();
+        } else {
+            this.userModel = userModel;
+            Intent intent = new Intent(this, WebViewActivity.class);
+            intent.putExtra("url", userModel.getData().getUrl());
+            startActivityForResult(intent, 1);
+
+        }
+
 
     }
-
-
-
-    }
-
-
 
 
     public void choosepackge(SinglePakcgesModel singlePakcgesModel) {
-        signUpAdvisorModel.setCurrent_package_id(singlePakcgesModel.getId()+"");
-        presenter.sign_up_without_image(signUpAdvisorModel);
+        signUpAdvisorModel.setCurrent_package_id(singlePakcgesModel.getId() + "");
+        presenter.checkdata(signUpAdvisorModel);
 
     }
+
     @Override
     public void onFailed() {
         Toast.makeText(PackgesActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
@@ -188,6 +185,7 @@ intent.putExtra("url",userModel.getData().getUrl());
         Toast.makeText(PackgesActivity.this, getString(R.string.server_error), Toast.LENGTH_SHORT).show();
 
     }
+
     @Override
     public void onnotconnect(String msg) {
         Toast.makeText(PackgesActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -197,7 +195,7 @@ intent.putExtra("url",userModel.getData().getUrl());
     @Override
     public void profile(UserModel body) {
         body.getData().setToken(userModel.getData().getToken());
-        this.userModel=body;
+        this.userModel = body;
         preferences.create_update_userdata(PackgesActivity.this, userModel);
 
 

@@ -16,6 +16,7 @@ import com.semicode.findsolution.models.LoginModel;
 import com.semicode.findsolution.mvp.activity_login_presenter.ActivityLoginPresenter;
 import com.semicode.findsolution.mvp.activity_login_presenter.ActivityLoginView;
 import com.semicode.findsolution.ui.activity_confirm_code.ConfirmCodeActivity;
+import com.semicode.findsolution.ui.activity_home.HomeActivity;
 
 import io.paperdb.Paper;
 
@@ -54,11 +55,9 @@ public class LoginActivity extends AppCompatActivity implements ActivityLoginVie
         });
 
         binding.tvskip.setOnClickListener(view -> {
-//            Intent intent = new Intent(this, HomeActivity.class);
-//            intent.putExtra("lat",lat);
-//            intent.putExtra("lng",lng);
-//            startActivity(intent);
-//            finish();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 

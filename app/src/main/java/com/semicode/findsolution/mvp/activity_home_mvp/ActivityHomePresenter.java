@@ -14,6 +14,7 @@ import com.semicode.findsolution.remote.Api;
 import com.semicode.findsolution.tags.Tags;
 import com.semicode.findsolution.ui.activity_home.fragments.FragmentAboutUs;
 import com.semicode.findsolution.ui.activity_home.fragments.FragmentContactUs;
+import com.semicode.findsolution.ui.activity_home.fragments.FragmentProfile;
 import com.semicode.findsolution.ui.activity_home.fragments.FragmentTermsConditions;
 import com.semicode.findsolution.ui.activity_home.fragments.Fragment_Home;
 
@@ -34,6 +35,7 @@ public class ActivityHomePresenter {
     private FragmentTermsConditions fragmentTermsConditions;
     private FragmentAboutUs fragmentAboutUs;
     private FragmentContactUs fragmentContactUs;
+    private FragmentProfile fragmentProfile;
 
     public ActivityHomePresenter(HomeActivityView view, Context context, FragmentManager fragmentManager) {
         this.view = view;
@@ -62,6 +64,9 @@ public class ActivityHomePresenter {
         }
         if (fragmentContactUs!=null&&fragmentContactUs.isAdded()){
             fragmentManager.beginTransaction().hide(fragmentContactUs).commit();
+        }
+        if (fragmentProfile!=null&&fragmentProfile.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentProfile).commit();
         }
 //
 //
@@ -92,6 +97,9 @@ public class ActivityHomePresenter {
         if (fragmentContactUs!=null&&fragmentContactUs.isAdded()){
             fragmentManager.beginTransaction().hide(fragmentContactUs).commit();
         }
+        if (fragmentProfile!=null&&fragmentProfile.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentProfile).commit();
+        }
 //
 //
 //        if (fragment_more!=null&&fragment_more.isAdded()){
@@ -120,6 +128,9 @@ public class ActivityHomePresenter {
         if (fragmentContactUs!=null&&fragmentContactUs.isAdded()){
             fragmentManager.beginTransaction().hide(fragmentContactUs).commit();
         }
+        if (fragmentProfile!=null&&fragmentProfile.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentProfile).commit();
+        }
 //
 //
 //        if (fragment_more!=null&&fragment_more.isAdded()){
@@ -147,6 +158,9 @@ public class ActivityHomePresenter {
         if (fragmentAboutUs!=null&&fragmentAboutUs.isAdded()){
             fragmentManager.beginTransaction().hide(fragmentAboutUs).commit();
         }
+        if (fragmentProfile!=null&&fragmentProfile.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentProfile).commit();
+        }
 //
 //
 //        if (fragment_more!=null&&fragment_more.isAdded()){
@@ -157,6 +171,36 @@ public class ActivityHomePresenter {
             fragmentManager.beginTransaction().show(fragmentContactUs).commit();
         }else {
             fragmentManager.beginTransaction().add(R.id.fragment_container_view_tag,fragmentContactUs,"fragmentContactUs").commit();
+        }
+    }
+    public void displayFragmentProfile(){
+        if (fragmentProfile==null){
+            fragmentProfile = FragmentProfile.newInstance();
+        }
+
+        if (fragmentTermsConditions!=null&&fragmentTermsConditions.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentTermsConditions).commit();
+        }
+
+        if (fragment_home!=null&&fragment_home.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_home).commit();
+        }
+        if (fragmentAboutUs!=null&&fragmentAboutUs.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentAboutUs).commit();
+        }
+        if (fragmentContactUs!=null&&fragmentContactUs.isAdded()){
+            fragmentManager.beginTransaction().hide(fragmentContactUs).commit();
+        }
+//
+//
+//        if (fragment_more!=null&&fragment_more.isAdded()){
+//            fragmentManager.beginTransaction().hide(fragment_more).commit();
+//        }
+
+        if (fragmentProfile.isAdded()){
+            fragmentManager.beginTransaction().show(fragmentProfile).commit();
+        }else {
+            fragmentManager.beginTransaction().add(R.id.fragment_container_view_tag,fragmentProfile,"fragmentProfile").commit();
         }
     }
 

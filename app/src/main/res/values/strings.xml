@@ -67,4 +67,6 @@
     <string name="pakeges">Pakeges</string>
     <string name="ryal">ryal</string>
     <string name="back">Back</string>
+    <string name="day">Day</string>
+    <string name="remaining">Remaining</string>
 </resources>

@@ -32,6 +32,7 @@ public class SingleUserModel  implements Serializable {
     private String deleted_at;
     private String created_at;
     private String updated_at;
+    private String number_of_payment_days;
     private String token;
     private SingleCategoryModel category;
     private SingleSubCategoryModel sub_category;
@@ -39,6 +40,7 @@ public class SingleUserModel  implements Serializable {
     private String canceled_url;
     private String declined_url;
     private String url;
+    private CurrentPackge current_package;
     public int getId() {
         return id;
     }
@@ -155,6 +157,10 @@ public class SingleUserModel  implements Serializable {
         return updated_at;
     }
 
+    public String getNumber_of_payment_days() {
+        return number_of_payment_days;
+    }
+
     public String getToken() {
         return token;
     }
@@ -183,7 +189,58 @@ public class SingleUserModel  implements Serializable {
         return url;
     }
 
+    public CurrentPackge getCurrent_package() {
+        return current_package;
+    }
+
     public void setToken(String token) {
         this.token = token;
+    }
+    public class CurrentPackge implements Serializable{
+        private int id;
+        private double price;
+        private String currency;
+        private int number_of_months;
+        private String is_free;
+        private String type;
+        private String is_shown;
+        private String created_at;
+        private String  updated_at;
+
+        public int getId() {
+            return id;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public String getCurrency() {
+            return currency;
+        }
+
+        public int getNumber_of_months() {
+            return number_of_months;
+        }
+
+        public String getIs_free() {
+            return is_free;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getIs_shown() {
+            return is_shown;
+        }
+
+        public String getCreated_at() {
+            return created_at;
+        }
+
+        public String getUpdated_at() {
+            return updated_at;
+        }
     }
 }

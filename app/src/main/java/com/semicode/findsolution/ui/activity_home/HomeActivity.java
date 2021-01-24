@@ -145,6 +145,27 @@ binding.llhome.setOnClickListener(new View.OnClickListener() {
         presenter.displayFragmentHome();
     }
 });
+        binding.llprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.drawar.closeDrawer(Gravity.RIGHT);
+                if(userModel!=null){
+                binding.tv1.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv2.setTextColor(getResources().getColor(R.color.colorAccent));
+                binding.tv3.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv4.setTextColor(getResources().getColor(R.color.gray9));
+                binding.tv5.setTextColor(getResources().getColor(R.color.gray9));
+                binding.image1.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image2.setColorFilter(R.color.colorAccent,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image3.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image4.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                binding.image5.setColorFilter(R.color.gray9,android.graphics.PorterDuff.Mode.MULTIPLY);
+                presenter.displayFragmentProfile();}
+                else {
+
+                }
+            }
+        });
     }
 
     public void slide(float slideOffset) {

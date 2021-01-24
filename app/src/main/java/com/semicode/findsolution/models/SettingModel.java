@@ -4,9 +4,14 @@ import java.io.Serializable;
 
 public class SettingModel implements Serializable {
     private Setting data;
+    private int status;
 
     public Setting getSettings() {
         return data;
+    }
+
+    public int getStatus() {
+        return status;
     }
 
     public static class Setting implements Serializable {

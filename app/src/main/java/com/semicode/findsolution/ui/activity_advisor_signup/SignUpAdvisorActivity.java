@@ -195,6 +195,9 @@ public class SignUpAdvisorActivity extends AppCompatActivity implements Activity
 
             }
         });
+        binding.flSelectImage.setOnClickListener(view -> {
+            dialog.show();
+        });
         createImageDialogAlert();
 
         updateUI();
@@ -461,8 +464,8 @@ public class SignUpAdvisorActivity extends AppCompatActivity implements Activity
 
             uri = data.getData();
             File file = new File(Common.getImagePath(this, uri));
-//            Picasso.get().load(file).fit().into(binding.image);
-//            binding.icon.setVisibility(View.GONE);
+           Picasso.get().load(file).fit().into(binding.image);
+           binding.icon.setVisibility(View.GONE);
             model.setImageUrl(uri.toString());
             binding.setModel(model);
 
@@ -470,19 +473,19 @@ public class SignUpAdvisorActivity extends AppCompatActivity implements Activity
 
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             uri = getUriFromBitmap(bitmap);
-            // binding.icon.setVisibility(View.GONE);
+             binding.icon.setVisibility(View.GONE);
 
             if (uri != null) {
                 model.setImageUrl(uri.toString());
                 binding.setModel(model);
                 String path = Common.getImagePath(this, uri);
-//                if (path != null) {
-//                    Picasso.get().load(new File(path)).fit().into(binding.image);
-//
-//                } else {
-//                    Picasso.get().load(uri).fit().into(binding.image);
-//
-//                }
+                if (path != null) {
+                    Picasso.get().load(new File(path)).fit().into(binding.image);
+
+                } else {
+                    Picasso.get().load(uri).fit().into(binding.image);
+
+                }
             }
 
 

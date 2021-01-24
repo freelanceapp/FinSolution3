@@ -125,10 +125,31 @@ public interface Service {
 
 
     );
+    @Multipart
+    @POST("api/ClientRegister")
+    Call<UserModel> signup(@Part("phone_code") RequestBody phone_code,
+                           @Part("phone") RequestBody phone,
+                           @Part("name") RequestBody name,
+                           @Part("software_type") RequestBody software_type,
+                           @Part("category_id") RequestBody category_id,
+                           @Part("sub_category_id") RequestBody sub_category_id,
+                           @Part("current_package_id") RequestBody current_package_id,
+                           @Part("work_title") RequestBody work_title,
+                           @Part("more_details") RequestBody more_details,
+                           @Part("contact_number") RequestBody contact_number,
+                           @Part("whatsapp_number") RequestBody whatsapp_number,
+                           @Part("address") RequestBody address,
+                           @Part("latitude") RequestBody latitude,
+                           @Part("longitude") RequestBody longitude,
+
+                           @Part MultipartBody.Part image
+
+
+    );
 
     @FormUrlEncoded
     @POST("api/userDetails")
-    Call<UserModel> getprofile(@Field("user_id") int phone_code
+    Call<UserModel> getprofile(@Field("user_id") int user_id
 
     );
 

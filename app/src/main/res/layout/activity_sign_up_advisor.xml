@@ -190,7 +190,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_180sdp"
                 android:hint="@string/additional_detials_chooser"
-                android:visibility="gone"
 
 
                 >
@@ -219,7 +218,6 @@
                 android:layout_height="@dimen/_130sdp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:visibility="gone"
                 android:layout_marginEnd="8dp">
 
                 <FrameLayout

@@ -10,6 +10,9 @@ import com.semicode.findsolution.models.SettingModel;
 import com.semicode.findsolution.remote.Api;
 import com.semicode.findsolution.tags.Tags;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
@@ -23,7 +26,6 @@ public class FragmentContactusPresenter {
     private FragmentContactusView view;
 
 
-
     public FragmentContactusPresenter(Context context, FragmentContactusView view) {
         this.context = context;
         this.view = view;
@@ -32,25 +34,38 @@ public class FragmentContactusPresenter {
 
     public void checkData(ContactUsModel contactUsModel) {
         if (contactUsModel.isDataValid(context)) {
-                Contactus(contactUsModel);
+            Contactus(contactUsModel);
 
         }
     }
-
 
 
     private void Contactus(ContactUsModel contactUsModel) {
 
         view.onLoad();
         Api.getService(Tags.base_url)
-                .contactUs(contactUsModel.getName(),contactUsModel.getEmail(),contactUsModel.getSubject(),contactUsModel.getMessage())
+                .contactUs(contactUsModel.getName(), contactUsModel.getEmail(), contactUsModel.getSubject(), contactUsModel.getMessage())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         view.onFinishload();
                         if (response.isSuccessful() && response.body() != null) {
                             //  Log.e("eeeeee", response.body().getUser().getName());
-                            view.onContactVaild();
+                            String re = null;
+                            String status = null;
+                            try {
+                                re = response.body().string();
+                                JSONObject obj = new JSONObject(re);
+                                status = (String) obj.get("status");
+                            } catch (Exception e) {
+                            }
+                            Log.e("data", re);
+                            if (status.equals("200")) {
+                                view.onContactVaild();
+                            } else {
+                                view.onFailed();
+
+                            }
                         } else {
                             try {
                                 Log.e("mmmmmmmmmmssss", response.errorBody().string());
@@ -91,6 +106,7 @@ public class FragmentContactusPresenter {
 
 
     }
+
     public void getSetting() {
         view.onLoad();
 
@@ -101,9 +117,16 @@ public class FragmentContactusPresenter {
                         view.onFinishload();
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
-                                view.onsetting(response.body());
-
+                                if (response.body().getStatus() == 200) {
+                                    view.onsetting(response.body());
+                                }
+                                else {
+                                    view.onFailed(context.getResources().getString(R.string.failed));
+                                }
                             }
+
+
+
                         } else {
                             // Log.e("xxxxx", settingModel.getSettings().getAbout_app_link() + "----");
 
