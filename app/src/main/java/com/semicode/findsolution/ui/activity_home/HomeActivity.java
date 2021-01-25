@@ -210,7 +210,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             }
         });
 
-        if ((userModel != null && (userModel.getData().getNumber_of_payment_days().equals("0") || !userModel.getData().getUser_type().equals("adviser"))) || userModel == null) {
+        if ((userModel != null && (!userModel.getData().getNumber_of_payment_days().equals("0") || !userModel.getData().getUser_type().equals("adviser"))) || userModel == null) {
             binding.llsubscribe.setVisibility(View.GONE);
         } else {
             binding.llsubscribe.setVisibility(View.VISIBLE);
