@@ -198,6 +198,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, PackgesActivity.class);
                 startActivity(intent);
+                finish();
 
             }
         });
