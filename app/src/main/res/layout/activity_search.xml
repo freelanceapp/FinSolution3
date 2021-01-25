@@ -47,7 +47,7 @@
                             android:padding="3dp"
                             android:rotation='@{lang.equals("en")?180:0}'
                             android:src="@drawable/ic_right_arrow"
-                            app:tint="@color/color1" />
+                            app:tint="@color/black" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -149,7 +149,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/no_data_to_show"
+                        android:text="@string/no_data_show"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:visibility="gone" />
