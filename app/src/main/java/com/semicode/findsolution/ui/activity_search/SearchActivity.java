@@ -29,6 +29,7 @@ import com.semicode.findsolution.models.SingleUserModel;
 import com.semicode.findsolution.mvp.activity_search_mvp.ActivitySearchPresenter;
 import com.semicode.findsolution.mvp.activity_search_mvp.SearchActivityView;
 import com.semicode.findsolution.share.Common;
+import com.semicode.findsolution.ui.activity_advisor_detials.AdvisorDetialsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,5 +150,9 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityV
         }
     }
 
-
+    public void showdprofile(SingleUserModel singleUserModel) {
+        Intent intent=new Intent(this, AdvisorDetialsActivity.class);
+        intent.putExtra("data",singleUserModel);
+        startActivity(intent);
+    }
 }

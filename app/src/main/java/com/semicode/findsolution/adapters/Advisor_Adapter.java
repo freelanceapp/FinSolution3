@@ -12,6 +12,7 @@ import com.semicode.findsolution.R;
 import com.semicode.findsolution.databinding.AdvisorRowBinding;
 import com.semicode.findsolution.models.SingleUserModel;
 import com.semicode.findsolution.ui.activity_department_detials.DepartmentDetialsActivity;
+import com.semicode.findsolution.ui.activity_search.SearchActivity;
 
 import java.util.List;
 
@@ -23,7 +24,6 @@ public class Advisor_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Context context;
     private LayoutInflater inflater;
     private String lang;
-    private DepartmentDetialsActivity departmentDetialsActivity;
     private int i=-1;
 
     public Advisor_Adapter(List<SingleUserModel> singleUserModelList, Context context) {
@@ -32,7 +32,6 @@ public class Advisor_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         inflater = LayoutInflater.from(context);
         Paper.init(context);
         lang = Paper.book().read("lang", java.util.Locale.getDefault().getLanguage());
-        departmentDetialsActivity =(DepartmentDetialsActivity) context;
     }
 
     @androidx.annotation.NonNull
@@ -56,7 +55,14 @@ public class Advisor_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onClick(android.view.View v) {
         i=position;
+        if(context instanceof DepartmentDetialsActivity){
+            DepartmentDetialsActivity departmentDetialsActivity=(DepartmentDetialsActivity)context;
         departmentDetialsActivity.showdprofile(singleUserModelList.get(eventHolder.getLayoutPosition()));
+    }
+    else {
+            SearchActivity departmentDetialsActivity=(SearchActivity) context;
+            departmentDetialsActivity.showdprofile(singleUserModelList.get(eventHolder.getLayoutPosition()));
+        }
     }
 });
 /*
