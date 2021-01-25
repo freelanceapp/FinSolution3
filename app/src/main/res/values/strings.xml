@@ -69,4 +69,8 @@
     <string name="back">Back</string>
     <string name="day">Day</string>
     <string name="remaining">Remaining</string>
+    <string name="logout">Logout</string>
+    <string name="search2">Search</string>
+    <string name="please_sign_in_or_sign_up">Please sign In or Sign Up</string>
+
 </resources>

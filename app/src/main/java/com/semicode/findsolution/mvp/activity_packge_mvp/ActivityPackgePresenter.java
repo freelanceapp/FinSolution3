@@ -277,4 +277,62 @@ public class ActivityPackgePresenter {
             sign_up_without_image(signUpAdvisorModel);
         }
     }
+    public void renew(UserModel userModel,String packgid) {
+
+        view.onLoad();
+        Api.getService(Tags.base_url)
+                .renew("Bearer "+userModel.getData().getToken(),packgid)
+                .enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        view.onFinishload();
+                        if (response.isSuccessful() && response.body() != null) {
+                            //  Log.e("eeeeee", response.body().getUser().getName());
+                            if (response.body().getStatus() == 200) {
+                                view.onSignupValid(response.body());
+                            } else if (response.body().getStatus() == 402) {
+                                view.onFailed(context.getResources().getString(R.string.user_found));
+                            }
+                        } else {
+                            try {
+                                Log.e("mmmmmmmmmmssss", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
+                            if (response.code() == 500) {
+                                view.onServer();
+                            } else {
+
+                                view.onFailed(response.message() + "");
+                                //  Toast.makeText(VerificationCodeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        try {
+                            view.onFinishload();
+                            if (t.getMessage() != null) {
+                                Log.e("msg_category_error", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    view.onnotconnect(t.getMessage().toLowerCase());
+                                    //  Toast.makeText(VerificationCodeActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    view.onFailed();
+                                    // Toast.makeText(VerificationCodeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
+
+
+    }
+
 }

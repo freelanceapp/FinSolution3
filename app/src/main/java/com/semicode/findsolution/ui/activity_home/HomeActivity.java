@@ -2,6 +2,7 @@ package com.semicode.findsolution.ui.activity_home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,9 @@ import com.semicode.findsolution.models.UserModel;
 import com.semicode.findsolution.mvp.activity_home_mvp.ActivityHomePresenter;
 import com.semicode.findsolution.mvp.activity_home_mvp.HomeActivityView;
 import com.semicode.findsolution.preferences.Preferences;
+import com.semicode.findsolution.ui.activity_login.LoginActivity;
+import com.semicode.findsolution.ui.activity_packges.PackgesActivity;
+import com.semicode.findsolution.ui.activity_search.SearchActivity;
 
 import io.paperdb.Paper;
 
@@ -57,6 +62,8 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
 
 
     private void initView() {
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(this);
         fragmentManager = getSupportFragmentManager();
         presenter = new ActivityHomePresenter(this, this, fragmentManager);
         toggle = new ActionBarDrawerToggle(this, binding.drawar, binding.toolbar, R.string.open, R.string.close) {
@@ -160,16 +167,54 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
                     binding.image3.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
                     binding.image4.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
                     binding.image5.setColorFilter(R.color.gray9, android.graphics.PorterDuff.Mode.MULTIPLY);
-                    if (userModel.getData().getUser_type().equals("advisor")) {
+                    if (userModel.getData().getUser_type().equals("adviser")) {
                         presenter.displayFragmentProfile();
                     } else {
-
+                        presenter.displayFragmentUserProfile();
                     }
                 } else {
-
+                    Toast.makeText(HomeActivity.this, getResources().getString(R.string.please_sign_in_or_sign_up), Toast.LENGTH_LONG).show();
                 }
             }
         });
+        binding.lllogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (userModel != null) {
+                    preferences.clear(HomeActivity.this);
+                    Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(HomeActivity.this, getResources().getString(R.string.please_sign_in_or_sign_up), Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+
+        });
+        binding.llsubscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, PackgesActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        binding.flSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        if ((userModel != null && (userModel.getData().getNumber_of_payment_days().equals("0") || !userModel.getData().getUser_type().equals("adviser"))) || userModel == null) {
+            binding.llsubscribe.setVisibility(View.GONE);
+        } else {
+            binding.llsubscribe.setVisibility(View.VISIBLE);
+
+        }
     }
 
     public void slide(float slideOffset) {

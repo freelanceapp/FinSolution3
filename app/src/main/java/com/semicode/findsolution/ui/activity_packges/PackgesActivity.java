@@ -61,8 +61,9 @@ public class PackgesActivity extends AppCompatActivity implements PackgeActivity
 
     private void getdatafromIntent() {
         Intent intent = getIntent();
+        if(intent.getSerializableExtra("data")!=null){
         signUpAdvisorModel = (SignUpAdvisorModel) intent.getSerializableExtra("data");
-    }
+    }}
 
     private void initView() {
         singlePakcgesModels = new ArrayList<>();
@@ -99,8 +100,12 @@ public class PackgesActivity extends AppCompatActivity implements PackgeActivity
 
     @Override
     public void onLoad() {
-        dialog2 = Common.createProgressDialog(this, getString(R.string.wait));
-        dialog2.setCancelable(false);
+        if (dialog2 == null) {
+            dialog2 = Common.createProgressDialog(this, getString(R.string.wait));
+            dialog2.setCancelable(false);
+        } else {
+            dialog2.dismiss();
+        }
         dialog2.show();
     }
 
@@ -149,6 +154,7 @@ public class PackgesActivity extends AppCompatActivity implements PackgeActivity
 
     @Override
     public void onSignupValid(UserModel userModel) {
+
         if (userModel.getData().getUrl().isEmpty() || userModel.getData().getUrl() == null) {
             preferences.create_update_userdata(PackgesActivity.this, userModel);
 
@@ -170,9 +176,12 @@ public class PackgesActivity extends AppCompatActivity implements PackgeActivity
 
 
     public void choosepackge(SinglePakcgesModel singlePakcgesModel) {
-        signUpAdvisorModel.setCurrent_package_id(singlePakcgesModel.getId() + "");
-        presenter.checkdata(signUpAdvisorModel);
-
+        if (this.userModel == null) {
+            signUpAdvisorModel.setCurrent_package_id(singlePakcgesModel.getId() + "");
+            presenter.checkdata(signUpAdvisorModel);
+        } else {
+            presenter.renew(userModel, singlePakcgesModel.getId() + "");
+        }
     }
 
     @Override

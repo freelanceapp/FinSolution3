@@ -72,4 +72,8 @@
     <string name="back">عوده</string>
     <string name="day">يوم</string>
     <string name="remaining">متبقى</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="search2">بحث</string>
+    <string name="please_sign_in_or_sign_up">قم بتسجيل الدخول او انشاء حساب جديد</string>
+
 </resources>

@@ -122,9 +122,8 @@ public interface Service {
                                     @Field("longitude") String longitude
 
 
-
-
     );
+
     @Multipart
     @POST("api/ClientRegister")
     Call<UserModel> signup(@Part("phone_code") RequestBody phone_code,
@@ -153,4 +152,14 @@ public interface Service {
 
     );
 
+    @FormUrlEncoded
+    @POST("api/searchInHome")
+    Call<AllAdvisorModel> search(@Field("search_keyword") String search_keyword
+
+    );
+    @FormUrlEncoded
+    @POST("api/renewUserPackage")
+    Call<UserModel> renew(
+            @Header("AUTHORIZATION")String AUTHORIZATION,
+            @Field("current_package_id") String current_package_id);
 }
