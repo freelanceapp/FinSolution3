@@ -44,7 +44,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityV
     private Advisor_Adapter adapter;
 
     private List<SingleUserModel> singleUserModelList;
-    private String query;
+    private String query="all";
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -83,7 +83,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityV
                     presenter.getdoctors(query);
                     return false;
                 } else {
-                    query = "";
+                    query = "all";
                 }
                 presenter.getdoctors(query);
 
