@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityLoginVie
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();
+
         });
     }
 

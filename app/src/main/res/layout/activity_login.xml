@@ -116,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/_12sdp"
-                        android:text="+20"
+                        android:text="+966"
                         />
                     <View
                         android:layout_width="1dp"
@@ -126,6 +126,8 @@
                         android:layout_marginStart="@dimen/_3sdp"
                         android:layout_marginTop="@dimen/_3sdp"
                         android:layout_marginBottom="@dimen/_3sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
                         />
                     <EditText
                         android:layout_width="match_parent"
