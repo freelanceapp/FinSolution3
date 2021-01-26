@@ -75,5 +75,7 @@
     <string name="logout">تسجيل الخروج</string>
     <string name="search2">بحث</string>
     <string name="please_sign_in_or_sign_up">قم بتسجيل الدخول او انشاء حساب جديد</string>
+    <string name="whats_app">Wahts App</string>
+    <string name="phone_call">Phone Call</string>
 
 </resources>

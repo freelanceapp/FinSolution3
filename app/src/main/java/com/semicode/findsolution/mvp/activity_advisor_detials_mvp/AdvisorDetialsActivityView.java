@@ -6,4 +6,5 @@ public interface AdvisorDetialsActivityView {
     void onFinished();
 
 
+    void ViewSocial(String s);
 }

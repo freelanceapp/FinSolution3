@@ -1,11 +1,18 @@
 package com.semicode.findsolution.ui.activity_advisor_detials;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 
@@ -38,7 +45,8 @@ public class AdvisorDetialsActivity extends AppCompatActivity implements Advisor
     private Marker marker;
     private float zoom = 15.0f;
     private String lang;
-
+    private static final int REQUEST_PHONE_CALL = 3;
+    private Intent intent;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -73,8 +81,72 @@ public class AdvisorDetialsActivity extends AppCompatActivity implements Advisor
            presenter.backPress();
         });
 
-
+        binding.cardcall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                open(userModel);
+            }
+        });
+        binding.cardwahts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (userModel != null &&  userModel.getWhatsapp_number() != null) {
+                    presenter.open("https://api.whatsapp.com/send?phone="+userModel.getWhatsapp_number());
+                }
+            }
+        });
         updateUI();
+        if(userModel.getContact_number()==null||userModel.getContact_number().isEmpty()){
+            binding.cardcall.setVisibility(View.GONE);
+        }
+        if(userModel.getWhatsapp_number()==null||userModel.getWhatsapp_number().isEmpty()){
+            binding.cardwahts.setVisibility(View.GONE);
+        }
+    }
+
+    private void open(SingleUserModel userModel) {
+        intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",  userModel.getContact_number(), null));
+                    if (intent != null) {
+                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (ContextCompat.checkSelfPermission(AdvisorDetialsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(AdvisorDetialsActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
+                            } else {
+                                startActivity(intent);
+                            }
+                        } else {
+                            startActivity(intent);
+                        }
+
+
+    }}
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PHONE_CALL: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (this.checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    Activity#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for Activity#requestPermissions for more details.
+                            return;
+                        }
+                    }
+                    startActivity(intent);
+                } else {
+
+                }
+                return;
+            }
+        }
+
     }
 
 
@@ -109,6 +181,12 @@ public class AdvisorDetialsActivity extends AppCompatActivity implements Advisor
     @Override
     public void onFinished() {
         finish();
+    }
+
+    @Override
+    public void ViewSocial(String s) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(s));
+        startActivity(intent);
     }
 
 

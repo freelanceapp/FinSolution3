@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.util.Log;
 
 
+import com.semicode.findsolution.models.SingleUserModel;
 import com.semicode.findsolution.models.UserModel;
 import com.semicode.findsolution.preferences.Preferences;
 
@@ -35,5 +36,8 @@ public class ActivityAdvisorDetialsPresenter {
     }
 
 
+    public void open(String s) {
+        view.ViewSocial(s);
 
+    }
 }
