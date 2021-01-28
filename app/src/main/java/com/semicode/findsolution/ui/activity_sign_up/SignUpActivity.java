@@ -1,8 +1,13 @@
 package com.semicode.findsolution.ui.activity_sign_up;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,58 +17,47 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.semicode.findsolution.R;
-
 import com.semicode.findsolution.databinding.ActivitySignUpBinding;
-import com.semicode.findsolution.databinding.DialogSelectImageBinding;
 import com.semicode.findsolution.language.Language;
 import com.semicode.findsolution.models.SignUpModel;
 import com.semicode.findsolution.models.UserModel;
-import com.semicode.findsolution.mvp.activity_sign_up_mvp.ActivitySignUpPresenter;
-import com.semicode.findsolution.mvp.activity_sign_up_mvp.ActivitySignUpView;
 import com.semicode.findsolution.preferences.Preferences;
+import com.semicode.findsolution.remote.Api;
 import com.semicode.findsolution.share.Common;
+import com.semicode.findsolution.tags.Tags;
 import com.semicode.findsolution.ui.activity_home.HomeActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.util.Locale;
 
 import io.paperdb.Paper;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class SignUpActivity extends AppCompatActivity implements ActivitySignUpView {
+public class SignUpActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;
-    private String phone = "", phone_code = "";
     private final String READ_PERM = Manifest.permission.READ_EXTERNAL_STORAGE;
     private final String write_permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     private final String camera_permission = Manifest.permission.CAMERA;
     private final int READ_REQ = 1, CAMERA_REQ = 2;
     private Uri uri = null;
-    private List<String> genderList;
-
-    private ActivitySignUpPresenter presenter;
-    private SignUpModel model;
-
-    private ProgressDialog dialog2;
-    private AlertDialog dialog;
-    private double lat = 0.0, lng = 0.0;
-    private String lang;
-
+    private SignUpModel signUpModel;
+    private UserModel userModel;
     private Preferences preferences;
+    private String phone;
+    private String phone_code;
+    private String lang;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -80,58 +74,75 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
 
     }
 
+    private void initView() {
+        Paper.init(this);
+        lang = Paper.book().read("lang", "ar");
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(this);
+        signUpModel = new SignUpModel();
+        if (userModel == null) {
+            signUpModel.setPhone_code(phone_code);
+            signUpModel.setPhone(phone);
+        } else {
+            signUpModel.setPhone_code(userModel.getData().getPhone_code());
+            signUpModel.setPhone(userModel.getData().getPhone());
+            signUpModel.setName(userModel.getData().getName());
+            Picasso.get().load(Uri.parse(Tags.IMAGE_URL + userModel.getData().getLogo())).into(binding.image);
+            binding.btnSignUp.setText(R.string.update_profile);
+        }
+
+        binding.setModel(signUpModel);
+        binding.fl.setOnClickListener(view -> openSheet());
+        binding.flGallery.setOnClickListener(view -> {
+            closeSheet();
+            checkReadPermission();
+        });
+
+        binding.flCamera.setOnClickListener(view -> {
+            closeSheet();
+            checkCameraPermission();
+        });
+
+        binding.btnCancel.setOnClickListener(view -> closeSheet());
+        binding.btnSignUp.setOnClickListener(view -> {
+            checkDataValid();
+        });
+
+
+    }
+
+
     private void getDataFromIntent() {
         Intent intent = getIntent();
         if (intent != null) {
             phone_code = intent.getStringExtra("phone_code");
             phone = intent.getStringExtra("phone");
-            lat = intent.getDoubleExtra("lat", 0.0);
-            lng = intent.getDoubleExtra("lng", 0.0);
-
 
         }
     }
 
-    private void initView() {
-        preferences = Preferences.getInstance();
-        Paper.init(this);
-        lang = Paper.book().read("lang", "ar");
-        model = new SignUpModel(phone_code, phone);
-        binding.setModel(model);
-        presenter = new ActivitySignUpPresenter(this, this);
+    public void openSheet() {
+        binding.expandLayout.setExpanded(true, true);
+    }
 
-        binding.btnLogin.setOnClickListener(view -> {
-            presenter.checkData(model);
-        });
-        binding.flSelectImage.setOnClickListener(view -> {
-            dialog.show();
-        });
-        createImageDialogAlert();
+    public void closeSheet() {
+        binding.expandLayout.collapse(true);
 
     }
 
-    private void createImageDialogAlert() {
-        dialog = new AlertDialog.Builder(this)
-                .create();
 
-        DialogSelectImageBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_select_image, null, false);
-        binding.btnCamera.setOnClickListener(view -> {
-            dialog.dismiss();
-            checkCameraPermission();
-        });
-        binding.btnGallery.setOnClickListener(view -> {
-            dialog.dismiss();
-            checkReadPermission();
-        });
-        binding.btnCancel.setOnClickListener(v -> dialog.dismiss()
+    public void checkDataValid() {
 
-        );
-       // dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_congratulation_animation;
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setView(binding.getRoot());
+
+        if (signUpModel.isDataValid(this)) {
+            Common.CloseKeyBoard(this, binding.edtName);
+            signUp();
+        }
+
     }
 
     public void checkReadPermission() {
+        closeSheet();
         if (ActivityCompat.checkSelfPermission(this, READ_PERM) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{READ_PERM}, READ_REQ);
         } else {
@@ -141,6 +152,7 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
 
     public void checkCameraPermission() {
 
+        closeSheet();
 
         if (ContextCompat.checkSelfPermission(this, write_permission) == PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(this, camera_permission) == PackageManager.PERMISSION_GRANTED
@@ -150,7 +162,6 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
             ActivityCompat.requestPermissions(this, new String[]{camera_permission, write_permission}, CAMERA_REQ);
         }
     }
-
 
     private void SelectImage(int req) {
 
@@ -184,7 +195,6 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
         }
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -216,20 +226,14 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
             uri = data.getData();
             File file = new File(Common.getImagePath(this, uri));
             Picasso.get().load(file).fit().into(binding.image);
-            binding.icon.setVisibility(View.GONE);
-            model.setImageUrl(uri.toString());
-            binding.setModel(model);
 
         } else if (requestCode == CAMERA_REQ && resultCode == Activity.RESULT_OK && data != null) {
 
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             uri = getUriFromBitmap(bitmap);
-            binding.icon.setVisibility(View.GONE);
-
             if (uri != null) {
-                model.setImageUrl(uri.toString());
-                binding.setModel(model);
                 String path = Common.getImagePath(this, uri);
+
                 if (path != null) {
                     Picasso.get().load(new File(path)).fit().into(binding.image);
 
@@ -250,51 +254,256 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
         return Uri.parse(MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "", ""));
     }
 
+    private void signUp() {
 
 
-    @Override
-    public void onLoad() {
-        dialog2 = Common.createProgressDialog(this, getString(R.string.wait));
-        dialog2.setCancelable(false);
-        dialog2.show();
-    }
-
-    @Override
-    public void onFinishload() {
-        dialog2.dismiss();
-    }
-
-    @Override
-    public void onFailed(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onnotconnect(String msg) {
-        Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT).show();
+        if (userModel == null) {
+            if (uri == null) {
+                signUpWithoutImage();
+            } else {
+                signUpWithImage();
+            }
+        } else {
+            if (uri == null) {
+                updateProfileWithoutImage();
+            } else {
+                updateProfileWithImage();
+            }
+        }
 
     }
 
-    @Override
-    public void onSignupValid(UserModel userModel) {
-        preferences.create_update_userdata(SignUpActivity.this, userModel);
+    private void updateProfileWithImage() {
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        RequestBody name_part = Common.getRequestBodyText(signUpModel.getName());
+        RequestBody phone_code_part = Common.getRequestBodyText(signUpModel.getPhone_code());
+        RequestBody phone_part = Common.getRequestBodyText(signUpModel.getPhone());
+
+        MultipartBody.Part image = Common.getMultiPart(this, uri, "logo");
 
 
+        Api.getService(Tags.base_url)
+                .updateProfileWithImage("Bearer " + userModel.getData().getToken(), name_part, phone_code_part, phone_part, image)
+                .enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getStatus() == 200) {
+                                preferences.create_update_userdata(SignUpActivity.this, response.body());
+                                setResult(RESULT_OK);
+                                finish();
+                            } else if (response.body().getStatus() == 402) {
+                                Toast.makeText(SignUpActivity.this, R.string.user_exist, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            try {
+                                Log.e("error", response.code() + "__" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (response.code() == 500) {
+                                Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("msg_category_error", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    Toast.makeText(SignUpActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
+    }
+
+    private void updateProfileWithoutImage() {
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .updateProfileWithoutImage("Bearer " + userModel.getData().getToken(), signUpModel.getName(), signUpModel.getPhone_code(), signUpModel.getPhone())
+                .enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getStatus() == 200) {
+                                preferences.create_update_userdata(SignUpActivity.this, response.body());
+                                setResult(RESULT_OK);
+                                finish();
+                            } else if (response.body().getStatus() == 402) {
+                                Toast.makeText(SignUpActivity.this, R.string.user_exist, Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            if (response.code() == 500) {
+                                Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            }
+
+                            try {
+                                Log.e("error", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("msg_category_error", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    Toast.makeText(SignUpActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
+    }
+
+    private void signUpWithoutImage() {
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .signUpWithoutImage(signUpModel.getPhone_code(),signUpModel.getPhone(),signUpModel.getName(), "android")
+                .enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getStatus() == 200) {
+                                preferences.create_update_userdata(SignUpActivity.this, response.body());
+                                navigateToHomeActivity();
+                            } else if (response.body().getStatus() == 402) {
+                                Toast.makeText(SignUpActivity.this, R.string.user_exist, Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            if (response.code() == 500) {
+                                Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            }
+
+                            try {
+                                Log.e("error", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("msg_category_error", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    Toast.makeText(SignUpActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
+    }
+
+    private void signUpWithImage() {
+
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        RequestBody name_part = Common.getRequestBodyText(signUpModel.getName());
+        RequestBody phone_code_part = Common.getRequestBodyText(signUpModel.getPhone_code());
+        RequestBody phone_part = Common.getRequestBodyText(signUpModel.getPhone());
+        RequestBody software_type_part = Common.getRequestBodyText("android");
+        MultipartBody.Part image = Common.getMultiPart(this, uri, "logo");
+
+
+        Api.getService(Tags.base_url)
+                .signUpWithImage(phone_code_part, phone_part,name_part , software_type_part, image)
+                .enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getStatus() == 200) {
+                                preferences.create_update_userdata(SignUpActivity.this, response.body());
+                                navigateToHomeActivity();
+                            } else if (response.body().getStatus() == 402) {
+                                Toast.makeText(SignUpActivity.this, R.string.user_exist, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            try {
+                                Log.e("error", response.code() + "__" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (response.code() == 500) {
+                                Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("msg_category_error", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    Toast.makeText(SignUpActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
+
+    }
+
+    private void navigateToHomeActivity() {
         Intent intent = new Intent(this, HomeActivity.class);
-
         startActivity(intent);
         finish();
-
     }
 
-    @Override
-    public void onFailed() {
-        Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-    }
 
-    @Override
-    public void onServer() {
-        Toast.makeText(SignUpActivity.this, getString(R.string.server_error), Toast.LENGTH_SHORT).show();
-
-    }
 }

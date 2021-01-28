@@ -18,6 +18,7 @@ public interface ActivitySignUpAdvisorView {
     void onaddress(PlaceGeocodeData body);
 
     void choosepackges();
+    void profile();
 
     void onSuccess(AllSubCatogryModel body);
 

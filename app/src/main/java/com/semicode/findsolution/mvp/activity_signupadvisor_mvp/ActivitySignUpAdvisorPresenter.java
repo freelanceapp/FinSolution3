@@ -38,10 +38,24 @@ public class ActivitySignUpAdvisorPresenter {
 
 
     public void checkData(SignUpAdvisorModel signUpModel) {
+
+
         if (signUpModel.isDataValid(context)) {
             if (signUpModel.getImageUrl().isEmpty()) {
                // sign_up_without_image(signUpModel);
                 view.choosepackges();
+            } else {
+                //sign_up_with_image(signUpModel);
+//
+            }
+        }
+    }
+
+    public void checkData2(SignUpAdvisorModel signUpModel) {
+        if (signUpModel.isDataValid(context)) {
+            if (signUpModel.getImageUrl().isEmpty()) {
+                // sign_up_without_image(signUpModel);
+                view.profile();
             } else {
                 //sign_up_with_image(signUpModel);
 //

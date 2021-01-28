@@ -42,7 +42,7 @@ public interface Service {
 
     @FormUrlEncoded
     @POST("api/ClientRegister")
-    Call<UserModel> signup(@Field("phone_code") String phone_code,
+    Call<UserModel> signUpWithoutImage(@Field("phone_code") String phone_code,
                            @Field("phone") String phone,
                            @Field("name") String name,
                            @Field("software_type") String software_type
@@ -52,7 +52,7 @@ public interface Service {
 
     @Multipart
     @POST("api/ClientRegister")
-    Call<UserModel> signup(@Part("phone_code") RequestBody phone_code,
+    Call<UserModel> signUpWithImage(@Part("phone_code") RequestBody phone_code,
                            @Part("phone") RequestBody phone,
                            @Part("name") RequestBody name,
                            @Part("software_type") RequestBody software_type,
@@ -140,7 +140,6 @@ public interface Service {
                            @Part("address") RequestBody address,
                            @Part("latitude") RequestBody latitude,
                            @Part("longitude") RequestBody longitude,
-
                            @Part MultipartBody.Part image
 
 
@@ -162,4 +161,60 @@ public interface Service {
     Call<UserModel> renew(
             @Header("AUTHORIZATION")String AUTHORIZATION,
             @Field("current_package_id") String current_package_id);
+
+    @FormUrlEncoded
+    @POST("api/updateProfileClient")
+    Call<UserModel> updateProfileWithoutImage(@Header("Authorization") String bearer_token,
+                                              @Field("name") String name,
+                                              @Field("phone_code") String phone_code,
+                                              @Field("phone") String phone
+    );
+    @Multipart
+    @POST("api/updateProfileAdviser")
+    Call<UserModel> updateProfileWithImage(@Header("Authorization") String bearer_token,
+                                           @Part("name") RequestBody name,
+                                           @Part("phone_code") RequestBody phone_code,
+                                           @Part("phone") RequestBody phone,
+                                           @Part MultipartBody.Part logo
+
+
+    );
+    @Multipart
+    @POST("api/updateProfileAdviser")
+    Call<UserModel> updateProfileWithImage(@Header("Authorization") String bearer_token,
+                                           @Part("phone_code") RequestBody phone_code,
+                                           @Part("phone") RequestBody phone,
+                                           @Part("name") RequestBody name,
+                                           @Part("category_id") RequestBody category_id,
+                                           @Part("sub_category_id") RequestBody sub_category_id,
+                                           @Part("work_title") RequestBody work_title,
+                                           @Part("more_details") RequestBody more_details,
+                                           @Part("contact_number") RequestBody contact_number,
+                                           @Part("whatsapp_number") RequestBody whatsapp_number,
+                                           @Part("address") RequestBody address,
+                                           @Part("latitude") RequestBody latitude,
+                                           @Part("longitude") RequestBody longitude,
+                                           @Part MultipartBody.Part image
+
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/updateProfileAdviser")
+    Call<UserModel> updateProfileWithoutImage(@Header("Authorization") String bearer_token,
+                                              @Field("phone_code") String phone_code,
+                                              @Field("phone") String phone,
+                                              @Field("name") String name,
+                                              @Field("category_id") String category_id,
+                                              @Field("sub_category_id") String sub_category_id,
+                                              @Field("work_title") String work_title,
+                                              @Field("more_details") String more_details,
+                                              @Field("contact_number") String contact_number,
+                                              @Field("whatsapp_number") String whatsapp_number,
+                                              @Field("address") String address,
+                                              @Field("latitude") String latitude,
+                                              @Field("longitude") String longitude
+    );
+
+
 }

@@ -75,7 +75,9 @@
     <string name="logout">تسجيل الخروج</string>
     <string name="search2">بحث</string>
     <string name="please_sign_in_or_sign_up">قم بتسجيل الدخول او انشاء حساب جديد</string>
-    <string name="whats_app">Wahts App</string>
-    <string name="phone_call">Phone Call</string>
+    <string name="whats_app">واتس اب</string>
+    <string name="phone_call">اتصال</string>
+    <string name="update_profile">تعديل</string>
+    <string name="user_exist">المستخدم موجود</string>
 
 </resources>

@@ -69,7 +69,7 @@ public class ActivitySignUpPresenter {
         MultipartBody.Part image_form_part = Common.getMultiPart(context, Uri.parse(signUpModel.getImageUrl()), "logo");
         view.onLoad();
         Api.getService(Tags.base_url)
-                .signup(phone_code_part, phone_part, name_part,  soft_part, image_form_part)
+                .signUpWithImage(phone_code_part, phone_part, name_part,  soft_part, image_form_part)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -125,7 +125,7 @@ public class ActivitySignUpPresenter {
 
         view.onLoad();
         Api.getService(Tags.base_url)
-                .signup(signUpModel.getPhone_code(), signUpModel.getPhone(), signUpModel.getName(), "android")
+                .signUpWithoutImage(signUpModel.getPhone_code(), signUpModel.getPhone(), signUpModel.getName(), "android")
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {

@@ -1,7 +1,10 @@
 package com.semicode.findsolution.ui.activity_home.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,7 @@ import com.semicode.findsolution.mvp.fragment_profile_mvp.FragmentProfileView;
 import com.semicode.findsolution.preferences.Preferences;
 import com.semicode.findsolution.share.Common;
 import com.semicode.findsolution.ui.activity_home.HomeActivity;
+import com.semicode.findsolution.ui.activity_sign_up.SignUpActivity;
 
 import io.paperdb.Paper;
 
@@ -60,6 +64,15 @@ public class FragmentUSerProfile extends Fragment implements FragmentProfileView
         lang = Paper.book().read("lang", "ar");
         presenter = new FragmentProfilePresenter(activity, this);
         presenter.getprofile(userModel.getData());
+        binding.flEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (userModel != null) {
+                    Intent intent = new Intent(activity, SignUpActivity.class);
+                    startActivityForResult(intent, 400);
+                }
+            }
+        });
 
     }
 
@@ -105,5 +118,18 @@ public class FragmentUSerProfile extends Fragment implements FragmentProfileView
 
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
+            userModel = preferences.getUserData(activity);
+            binding.setModel(singleUserModel);
+
+        } else if (requestCode == 400 && resultCode == Activity.RESULT_OK) {
+            userModel = preferences.getUserData(activity);
+            binding.setModel(userModel.getData());
+        }
+    }
 
 }

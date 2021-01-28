@@ -58,7 +58,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <FrameLayout
-                        android:id="@+id/flback"
+                        android:id="@+id/flEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_8sdp"
@@ -154,7 +154,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:padding="3dp"
-                                android:src="@drawable/ic_user"
+                                android:src="@drawable/telephone"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
 
@@ -167,7 +167,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:text="@string/name"
+                                android:text="@string/user_phone"
                                 android:textColor="@color/black"
                                 android:textSize="13sp"
                                 app:layout_constraintStart_toEndOf="@+id/image"
@@ -180,7 +180,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:text="@{model.name}"
+                                android:text="@{model.phone_code+model.phone}"
                                 android:textColor="@color/black"
                                 android:textSize="13sp"
                                 app:layout_constraintStart_toEndOf="@+id/image"

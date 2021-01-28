@@ -74,5 +74,7 @@
     <string name="please_sign_in_or_sign_up">Please sign In or Sign Up</string>
     <string name="whats_app">Wahts App</string>
     <string name="phone_call">Phone Call</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="user_exist">User Exist</string>
 
 </resources>

@@ -24,7 +24,7 @@ public class SignUpModel extends BaseObservable implements Serializable {
 
 
 
-    public SignUpModel(String phone_code, String phone) {
+    public SignUpModel() {
         this.phone_code = phone_code;
         this.phone = phone;
         this.imageUrl="";

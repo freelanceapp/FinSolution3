@@ -10,13 +10,28 @@
             type="com.semicode.findsolution.models.SignUpModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        tools:context=".ui.activity_login.LoginActivity">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
 
-        <ImageView
+            >
+
+
+            <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:fitsSystemWindows="true"
+            tools:context=".activities_fragments.activity_signup.SignUpActivity">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                tools:context=".ui.activity_login.LoginActivity">
+
+            <ImageView
             android:id="@+id/logo"
             android:layout_width="@dimen/_250sdp"
             android:layout_height="@dimen/_120sdp"
@@ -34,7 +49,7 @@
             android:id="@+id/cardlogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_margin="@dimen/_5sdp"
             app:cardCornerRadius="@dimen/_10sdp"
             app:layout_constraintBottom_toTopOf="@+id/imagbottom"
             app:layout_constraintTop_toBottomOf="@+id/logo">
@@ -42,48 +57,58 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <FrameLayout
-                    android:id="@+id/flSelectImage"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/fl"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintEnd_toEndOf="parent"
+
+
+
+                    >
+
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
                         android:clickable="false"
                         android:longClickable="false"
-                        android:src="@color/white"
-                        app:civ_circle_background_color="@color/white" />
-
-                    <ImageView
-                        android:id="@+id/icon"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:clickable="false"
-
-                        android:longClickable="false"
-                        android:src="@drawable/user"
-
+                        android:src="@drawable/ic_avatar"
+                        app:civ_border_color="@color/colorPrimary"
+                        app:civ_border_width="1px"
+                        app:civ_circle_background_color="@color/white"
                         />
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="start|bottom"
-                        android:background="@drawable/circle_bg"
-                        android:clickable="false"
-                        android:longClickable="false"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_edit"
-                        app:tint="@color/white" />
+
                 </FrameLayout>
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintTop_toTopOf="@id/fl"
+                    app:layout_constraintBottom_toBottomOf="@id/fl"
+                    app:layout_constraintVertical_bias="1"
+                    app:layout_constraintStart_toStartOf="@id/fl"
+                    app:layout_constraintEnd_toEndOf="@id/fl"
+                    app:layout_constraintHorizontal_bias=".1"
+                    >
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@color/colorPrimary"
+                        />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_edit"
+                        app:tint="@color/white"
+                        android:padding="10dp"
+                        />
+                </FrameLayout>
+
 
                 <LinearLayout
                     android:id="@+id/llLogin"
@@ -93,7 +118,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/flSelectImage"
+                    app:layout_constraintTop_toBottomOf="@id/fl"
                     app:layout_constraintVertical_bias=".15">
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -106,6 +131,7 @@
                         >
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtName"
 
                             error="@{model.error_name}"
                             android:layout_width="match_parent"
@@ -123,7 +149,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
-                        android:id="@+id/btnLogin"
+                        android:id="@+id/btnSignUp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -145,6 +171,106 @@
             android:layout_height="120dp"
             android:src="@drawable/img_login"
             app:layout_constraintBottom_toBottomOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/expandLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="@color/trans_black"
+            android:padding="16dp"
+            app:el_duration="800"
+            app:el_expanded="false"
+            app:el_parallax=".5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/flGallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="12dp"
+                            android:src="@drawable/ic_gallery"
+                            app:tint="@color/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/gallery"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/flCamera"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="12dp"
+                            android:src="@drawable/ic_camera"
+                            app:tint="@color/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/camera"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/cancel"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+        </FrameLayout>
 </layout>
